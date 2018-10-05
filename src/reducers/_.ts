@@ -12,4 +12,4 @@ export default (state: IStoreState, action: EnthusiasmAction): IStoreState => {
         default:
             return state;
     }
-}
+};

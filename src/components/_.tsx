@@ -9,10 +9,10 @@ export interface IHelloProps {
     fetchLanguage?: (language: string) => void;
 }
 
-export class Hello extends React.Component<IHelloProps>{
+export class Hello extends React.Component<IHelloProps> {
 
     public componentDidMount() {
-        this.props.fetchLanguage!('C#')
+        this.props.fetchLanguage!('C#');
     }
 
     public render() {

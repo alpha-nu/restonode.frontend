@@ -24,18 +24,18 @@ export interface IDecrementEnthusiasm {
 }
 
 export interface IFetchLanguageRequest {
-    type: FETCH_LANGUAGE_REQUEST,
-    payload: string
+    type: FETCH_LANGUAGE_REQUEST;
+    payload: string;
 }
 
 export interface IFetchLanguageSuccess {
-    type: FETCH_LANGUAGE_SUCCESS,
-    payload: string
+    type: FETCH_LANGUAGE_SUCCESS;
+    payload: string;
 }
 
 export interface IFetchLanguageFailure {
-    type: FETCH_LANGUAGE_FAILURE,
-    payload: string
+    type: FETCH_LANGUAGE_FAILURE;
+    payload: string;
 }
 
 export type EnthusiasmAction =
@@ -60,5 +60,5 @@ export const fetchLanguage = (language: string) => {
 
         const result = await Promise.resolve('hello');
         await dispatch<IFetchLanguageSuccess>(fetchLanguageSuccess(result));
-    }
+    };
 };
