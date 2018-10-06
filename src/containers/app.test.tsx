@@ -36,7 +36,7 @@ test('map logins state to props', () => {
         logins: [{
             userName: 'test',
             canCreateRestaurant: false,
-            loggedIn: true
+            active: true
         }], restaurants: []
     };
 
@@ -45,7 +45,7 @@ test('map logins state to props', () => {
     expect(mappedProps.logins).toEqual([{
         userName: 'test',
         canCreateRestaurant: false,
-        loggedIn: true
+        active: true
     }]);
 });
 

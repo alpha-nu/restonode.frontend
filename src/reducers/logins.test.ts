@@ -1,15 +1,16 @@
 import reducer from './logins';
 import { SWITCH_LOGIN } from '../actions/login';
+import { ILogin } from '../store';
 
 test('sets loggedIn flag to true when user is switched and resets the rest', () => {
-    const initialLogins = [
-        { userName: 'anonymous', canCreateRestaurant: false, loggedIn: false },
-        { userName: 'hungryJoe', canCreateRestaurant: false, loggedIn: false },
-        { userName: 'mrBigShot', canCreateRestaurant: true, loggedIn: true }
+    const initialLogins: ILogin[] = [
+        { userName: 'anonymous', canCreateRestaurant: false, active: false },
+        { userName: 'hungryJoe', canCreateRestaurant: false, active: false },
+        { userName: 'mrBigShot', canCreateRestaurant: true, active: true }
     ];
 
     const logins = reducer(initialLogins, { type: SWITCH_LOGIN, userName: 'hungryJoe' });
-    expect(logins.map(_ => _.loggedIn)).toEqual([false, true, false]);
+    expect(logins.map(_ => _.active)).toEqual([false, true, false]);
 });
 
 test('return initial state for unknown action types', () => {

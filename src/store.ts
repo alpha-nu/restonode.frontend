@@ -5,7 +5,7 @@ import restaurants from './reducers/restaurants';
 export interface ILogin {
     userName: string;
     canCreateRestaurant: boolean;
-    loggedIn: boolean;
+    active: boolean;
 }
 
 export interface IMeal {
