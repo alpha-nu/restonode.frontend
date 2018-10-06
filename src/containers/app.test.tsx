@@ -9,6 +9,7 @@ import { IStoreState } from '../store';
 import { SWITCH_LOGIN } from '../actions/login';
 import { FETCH_RESTAURANTS_REQUEST, FETCH_RESTAURANTS_SUCCESS } from '../actions/restaurant';
 import * as nock from 'nock';
+import { apiEndPoint } from '../config/endpoints';
 
 const mockStore = configureMockStore();
 
@@ -78,19 +79,22 @@ test('map switchLogin to store dispatch', () => {
 
 test('map fetchRestaurants to store dispatch', async () => {
 
-    nock('http://localhost:3000')
-        .get('/v1/order-management/restaurants')
-        .reply(200, {
+    nock(apiEndPoint).get('/v1/order-management/restaurants').reply(200,
+        {
             restaurants: [
                 {
                     name: 'great eats',
                     score: 8,
                     id: 1,
                     address: 'address'
+                },
+                {
+                    name: 'fancy eats',
+                    score: undefined,
+                    id: 2,
+                    address: 'address 2'
                 }]
-        }, {
-                'Access-Control-Allow-Origin': '*'
-            });
+        }, { 'Access-Control-Allow-Origin': '*' });
 
     const dispatcher = jest.fn();
     const mappedDispatches = mapDispatchToProps(dispatcher);
@@ -103,6 +107,9 @@ test('map fetchRestaurants to store dispatch', async () => {
 
     expect(dispatcher.mock.calls[1][0]).toEqual({
         type: FETCH_RESTAURANTS_SUCCESS,
-        response: [{ id: 1, name: 'great eats', address: 'address', rating: '8' }]
+        response: [
+            { id: 1, name: 'great eats', address: 'address', rating: '8' },
+            { id: 2, name: 'fancy eats', address: 'address 2', rating: 'n/a' }
+        ]
     });
 });
