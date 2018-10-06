@@ -1,11 +1,11 @@
 import reducer from './logins';
-import { SWITCH_LOGIN } from '../actions/switchLogin';
+import { SWITCH_LOGIN } from '../actions/login';
 
-test('sets loggedIn flag to true when user is switched', () => {
+test('sets loggedIn flag to true when user is switched and resets the rest', () => {
     const initialLogins = [
         { userName: 'anonymous', canCreateRestaurant: false, loggedIn: false },
         { userName: 'hungryJoe', canCreateRestaurant: false, loggedIn: false },
-        { userName: 'mrBigShot', canCreateRestaurant: true, loggedIn: false }
+        { userName: 'mrBigShot', canCreateRestaurant: true, loggedIn: true }
     ];
 
     const logins = reducer(initialLogins, { type: SWITCH_LOGIN, userName: 'hungryJoe' });

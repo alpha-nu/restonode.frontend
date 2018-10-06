@@ -15,6 +15,7 @@ export interface IMeal {
 }
 
 export interface IRestaurant {
+    id: number;
     name: string;
     address: string;
     rating: string;

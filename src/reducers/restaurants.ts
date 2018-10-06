@@ -1,6 +1,10 @@
 import { IRestaurant } from '../store';
-import { OrderAction } from '../actions';
+import { RestonodeAction } from '../actions';
+import { FETCH_RESTAURANTS_SUCCESS } from '../actions/restaurant';
 
-export default (state: IRestaurant[] = [], action: OrderAction): IRestaurant[] => {
+export default (state: IRestaurant[] = [], action: RestonodeAction): IRestaurant[] => {
+    if (action.type === FETCH_RESTAURANTS_SUCCESS) {
+        return action.response!;
+    }
     return state;
 };

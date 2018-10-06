@@ -1,5 +1,5 @@
 import { ILogin } from '../store';
-import { ISwitchLogin, SWITCH_LOGIN } from '../actions/switchLogin';
+import { ISwitchLogin, SWITCH_LOGIN } from '../actions/login';
 
 const initialLogins = [
     { userName: 'anonymous', canCreateRestaurant: false, loggedIn: false },
@@ -10,7 +10,6 @@ const initialLogins = [
 export default (logins: ILogin[] = initialLogins, action: ISwitchLogin): ILogin[] => {
     if (action.type !== SWITCH_LOGIN) { return logins; }
     return logins.map(_ => {
-        if (_.userName !== action.userName) { return _; }
-        return { ..._, loggedIn: true };
+        return { ..._, loggedIn: _.userName === action.userName };
     });
 };

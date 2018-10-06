@@ -1,7 +1,4 @@
-import { ISwitchLogin } from './switchLogin';
+import { ISwitchLogin } from './login';
+import { IFetchRestaurants } from './restaurant';
 
-interface IOrderAction {
-    type: string;
-}
-
-export type OrderAction = ISwitchLogin | IOrderAction;
+export type RestonodeAction = ISwitchLogin | IFetchRestaurants;
