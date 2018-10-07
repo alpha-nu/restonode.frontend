@@ -10,6 +10,7 @@ import { SWITCH_LOGIN } from '../actions/login';
 import { FETCH_RESTAURANTS_REQUEST, FETCH_RESTAURANTS_SUCCESS, SELECT_RESTAURANT } from '../actions/restaurant';
 import * as nock from 'nock';
 import { apiEndPoint } from '../config/endpoints';
+import { FETCH_MEALS_REQUEST, FETCH_MEALS_SUCCESS } from '../actions/meal';
 
 const mockStore = configureMockStore();
 
@@ -122,5 +123,39 @@ test('map selectRestaurant to store dispatch', () => {
     expect(dispatcher.mock.calls[0][0]).toEqual({
         type: SELECT_RESTAURANT,
         id: 4
+    });
+});
+
+test('map fetchMeals to store dispatch', async () => {
+    nock(apiEndPoint).get('/v1/order-management/restaurants/1/meals').reply(200,
+        {
+            meals: [
+                {
+                    id: 1,
+                    name: 'house burger',
+                    description: 'address',
+                    price: 8
+                }]
+        }, { 'Access-Control-Allow-Origin': '*' });
+
+    const dispatcher = jest.fn();
+    const mappedDispatches = mapDispatchToProps(dispatcher);
+
+    await mappedDispatches.fetchMeals(1);
+
+    expect(dispatcher.mock.calls[0][0]).toEqual({
+        type: FETCH_MEALS_REQUEST,
+        restaurantId: 1
+    });
+
+    expect(dispatcher.mock.calls[1][0]).toEqual({
+        type: FETCH_MEALS_SUCCESS,
+        response: [
+            {
+                id: 1,
+                name: 'house burger',
+                description: 'address',
+                price: 8
+            }]
     });
 });

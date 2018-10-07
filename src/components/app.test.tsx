@@ -25,7 +25,9 @@ test('<App /> renders its child components and defaults to restaurant view', () 
                 switchLogin={jest.fn()}
                 restaurants={{ all: [], selected: { address: '', id: 0, name: '', rating: '' } }}
                 fetchRestaurants={jest.fn()}
-                selectRestaurant={jest.fn()} />
+                selectRestaurant={jest.fn()}
+                fetchMeals={jest.fn()}
+                selectedRestaurant={{ name: '', id: 0, address: '', rating: '' }} />
         </MemoryRouter>
     );
     expect(app.find(Navigation).exists()).toBe(true);
@@ -42,7 +44,9 @@ test('<App /> renders menu view for a selected restaurant', () => {
                 switchLogin={jest.fn()}
                 restaurants={{ all: [], selected: { address: '', id: 0, name: '', rating: '' } }}
                 fetchRestaurants={jest.fn()}
-                selectRestaurant={jest.fn()} />
+                selectRestaurant={jest.fn()}
+                fetchMeals={jest.fn()}
+                selectedRestaurant={{ name: '', id: 0, address: '', rating: '' }} />
         </MemoryRouter>
     );
     expect(app.find(Navigation).exists()).toBe(true);

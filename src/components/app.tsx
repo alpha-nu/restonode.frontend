@@ -4,9 +4,9 @@ import Restaurants, { IRestaurantsProps } from './restaurants';
 import Navigation from './navigation';
 import Order from './order';
 import { ILoginsProps } from './logins';
-import Menu from './menu';
+import Menu, { IMenuProps } from './menu';
 
-export default class App extends React.Component<ILoginsProps & IRestaurantsProps> {
+export default class App extends React.Component<ILoginsProps & IRestaurantsProps & IMenuProps> {
     public render() {
         return (
             <div>
@@ -24,10 +24,15 @@ export default class App extends React.Component<ILoginsProps & IRestaurantsProp
                                 fetchRestaurants={this.props.fetchRestaurants}
                                 restaurants={this.props.restaurants}
                                 selectRestaurant={this.props.selectRestaurant}
-                                 />
+                            />
                         </Route>
                         <Route path='/restaurants/:id' render={(params) => {
-                            return (<Menu {...params} selectedRestaurant={this.props.restaurants.selected!} />); }} />
+                            return (
+                                <Menu {...params}
+                                    fetchMeals={this.props.fetchMeals}
+                                    selectedRestaurant={this.props.restaurants.selected!} />
+                            );
+                        }} />
                     </Switch>
                 </main>
             </div>

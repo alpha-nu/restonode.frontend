@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IRestaurant } from '../../store';
+import { IRestaurant, IMeal } from '../../store';
 import { RouteComponentProps } from 'react-router';
 
 interface IRestaurantParams {
@@ -8,23 +8,28 @@ interface IRestaurantParams {
 
 export interface IMenuProps {
     fetchMeals?: (restaurantId: number) => void;
-    selectedRestaurant: IRestaurant;
+    selectedRestaurant?: IRestaurant;
 }
 
 export default class Menu extends React.Component<IMenuProps & RouteComponentProps<IRestaurantParams>> {
 
+    componentDidMount() {
+        this.props.fetchMeals!(this.props.selectedRestaurant!.id);
+    }
+
+    mealFragment = ({id, name, description, price}: IMeal) => (
+        <div key={id}>
+            <h3>{name} ({price})</h3>
+            <i>{description}</i>
+        </div>
+    )
+
     public render() {
         return (
             <div>
-                {this.props.match.params.id}
-                <h1>{this.props.selectedRestaurant && this.props.selectedRestaurant.name}</h1>
+                <h1>{this.props.selectedRestaurant!.name}</h1>
                 <h2>Meals</h2>
-                {this.props.selectedRestaurant.meals && this.props.selectedRestaurant.meals.map(_ => (
-                    <div key={_.id}>
-                        <h3>{_.name} ({_.price})</h3>
-                        <i>{_.description}</i>
-                    </div>
-                ))}
+                {this.props.selectedRestaurant!.meals && this.props.selectedRestaurant!.meals!.map(this.mealFragment)}
             </div>
         );
     }

@@ -5,6 +5,7 @@ import { Dispatch } from 'redux';
 import { RestonodeAction } from '../actions';
 import { switchLogin } from '../actions/login';
 import { fetchRestaurants, selectRestaurant } from '../actions/restaurant';
+import { fetchMeals } from '../actions/meal';
 
 export const mapStateToProps = (state: IStoreState) => ({
     user: state.user,
@@ -14,7 +15,8 @@ export const mapStateToProps = (state: IStoreState) => ({
 export const mapDispatchToProps = (dispatch: Dispatch<RestonodeAction>) => ({
     switchLogin: (userName: string) => dispatch(switchLogin(userName)),
     fetchRestaurants: () => fetchRestaurants()(dispatch),
-    selectRestaurant: (id: number) => dispatch(selectRestaurant(id))
+    selectRestaurant: (id: number) => dispatch(selectRestaurant(id)),
+    fetchMeals: (restaurantId: number) => fetchMeals(restaurantId)(dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, undefined, { pure: false })(App);
