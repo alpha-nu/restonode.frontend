@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import App, { mapStateToProps, mapDispatchToProps } from './app';
 import { IStoreState } from '../store';
 import { SWITCH_LOGIN } from '../actions/login';
-import { FETCH_RESTAURANTS_REQUEST, FETCH_RESTAURANTS_SUCCESS } from '../actions/restaurant';
+import { FETCH_RESTAURANTS_REQUEST, FETCH_RESTAURANTS_SUCCESS, SELECT_RESTAURANT } from '../actions/restaurant';
 import * as nock from 'nock';
 import { apiEndPoint } from '../config/endpoints';
 
@@ -33,7 +33,7 @@ test('App container is connected to the store', () => {
 
 test('map logins state to props', () => {
     const initialState: IStoreState = {
-        restaurants: {all: []},
+        restaurants: { all: [] },
         user: {
             logins: [],
             current: {
@@ -110,5 +110,17 @@ test('map fetchRestaurants to store dispatch', async () => {
             { id: 1, name: 'great eats', address: 'address', rating: '8' },
             { id: 2, name: 'fancy eats', address: 'address 2', rating: 'n/a' }
         ]
+    });
+});
+
+test('map selectRestaurant to store dispatch', () => {
+    const dispatcher = jest.fn();
+    const mappedDispatches = mapDispatchToProps(dispatcher);
+
+    mappedDispatches.selectRestaurant(4);
+
+    expect(dispatcher.mock.calls[0][0]).toEqual({
+        type: SELECT_RESTAURANT,
+        id: 4
     });
 });

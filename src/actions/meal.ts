@@ -1,8 +1,4 @@
 import { IMeal } from '../store';
-
-// import axios from 'axios';
-// import { apiEndPoint } from '../config/endpoints';
-
 const FETCH_MEALS = 'FETCH_MEALS';
 export type FETCH_MEALS = typeof FETCH_MEALS;
 

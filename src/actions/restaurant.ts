@@ -43,3 +43,8 @@ export const fetchRestaurants = () => {
         dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_SUCCESS, response: result });
     };
 };
+
+export const selectRestaurant = (id: number): ISelectRestaurant => ({
+    type: SELECT_RESTAURANT,
+    id
+});

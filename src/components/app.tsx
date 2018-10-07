@@ -22,7 +22,9 @@ export default class App extends React.Component<ILoginsProps & IRestaurantsProp
                         <Route exact={true} path='/restaurants' >
                             <Restaurants
                                 fetchRestaurants={this.props.fetchRestaurants}
-                                restaurants={this.props.restaurants} />
+                                restaurants={this.props.restaurants}
+                                selectRestaurant={this.props.selectRestaurant}
+                                 />
                         </Route>
                         <Route path='/restaurants/:id' render={(params) => {
                             return (<Menu {...params} selectedRestaurant={this.props.restaurants.selected!} />); }} />
