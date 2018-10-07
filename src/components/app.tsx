@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Restaurants, { IRestaurantsProps } from './restaurants';
 import Navigation from './navigation';
 import Order from './order';
 import { ILoginsProps } from './logins';
+import Menu from './menu';
 
 export default class App extends React.Component<ILoginsProps & IRestaurantsProps> {
     public render() {
@@ -11,17 +12,21 @@ export default class App extends React.Component<ILoginsProps & IRestaurantsProp
             <div>
                 <header>
                     <Navigation
-                        logins={this.props.logins}
+                        user={this.props.user}
                         switchLogin={this.props.switchLogin}
                     />
                     <Order />
                 </header>
                 <main>
-                    <Route path='/restaurants' >
-                        <Restaurants
-                            fetchRestaurants={this.props.fetchRestaurants}
-                            restaurants={this.props.restaurants} />
-                    </Route>
+                    <Switch>
+                        <Route exact={true} path='/restaurants' >
+                            <Restaurants
+                                fetchRestaurants={this.props.fetchRestaurants}
+                                restaurants={this.props.restaurants} />
+                        </Route>
+                        <Route path='/restaurants/:id' render={(params) => {
+                            return (<Menu {...params} selectedRestaurant={this.props.restaurants.selected!} />); }} />
+                    </Switch>
                 </main>
             </div>
         );

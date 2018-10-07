@@ -1,9 +1,9 @@
-import { IRestaurant } from '../store';
+import { IRestaurants } from '../store';
 import reducer from '../reducers/restaurants';
-import { FETCH_RESTAURANTS_SUCCESS } from '../actions/restaurant';
+import { FETCH_RESTAURANTS_SUCCESS, SELECT_RESTAURANT } from '../actions/restaurant';
 
 test('returns initial state for unknown action types', () => {
-    const initialState: IRestaurant[] = [];
+    const initialState: IRestaurants = { all: [] };
     const result = reducer(initialState, { type: 'UNKNOWN' } as any);
 
     expect(result).toBe(initialState);
@@ -11,7 +11,23 @@ test('returns initial state for unknown action types', () => {
 
 test('loads restaurants results into the store after successful fetch', () => {
     const response = [{ id: 1, name: 'name', address: 'address', rating: '10' }];
-    const result = reducer([], { type: FETCH_RESTAURANTS_SUCCESS, response });
+    const result = reducer({ all: [] }, { type: FETCH_RESTAURANTS_SUCCESS, response });
 
-    expect(result).toEqual(response);
+    expect(result.all).toEqual(response);
+});
+
+test('udpates store with the selected restaurant', () => {
+    const initialState: IRestaurants = {
+        all: [
+            { id: 1, address: 'address', rating: '7', name: 'resto1' },
+            { id: 5, address: 'address', rating: '6', name: 'resto2' }
+        ], selected: undefined
+    };
+
+    const result = reducer(initialState, { type: SELECT_RESTAURANT, id: 5 });
+
+    expect(result).toEqual({
+        ...initialState,
+        selected: { id: 5, address: 'address', rating: '6', name: 'resto2' }
+    });
 });

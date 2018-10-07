@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ILogin } from '../../store';
+import { IUser } from '../../store';
 
 export interface ILoginsProps {
-    logins: ILogin[];
+    user: IUser;
     switchLogin: (userName: string) => any;
 }
 
@@ -11,7 +11,7 @@ export default class Logins extends React.Component<ILoginsProps> {
         return (
             <div>
                 <ul>
-                    {this.props.logins.map(_ => (
+                    {this.props.user.logins.map(_ => (
                         <li className='user-login'
                             key={_.userName}
                             onClick={() => this.props.switchLogin(_.userName)}

@@ -20,6 +20,13 @@ export interface IFetchRestaurants {
     response?: IRestaurant[];
 }
 
+export const SELECT_RESTAURANT = 'SELECT_RESTAURANT';
+export type SELECT_RESTAURANT = typeof SELECT_RESTAURANT;
+export interface ISelectRestaurant {
+    type: SELECT_RESTAURANT;
+    id: number;
+}
+
 export const fetchRestaurants = () => {
     return async (dispatch: Dispatch<RestonodeAction>) => {
         dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_REQUEST });

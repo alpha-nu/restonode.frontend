@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { IRestaurant } from '../../store';
+import { IRestaurants } from '../../store';
+import { Link } from 'react-router-dom';
 
 export interface IRestaurantsProps {
-    restaurants: IRestaurant[];
+    restaurants: IRestaurants;
     fetchRestaurants: () => void;
 }
 
@@ -16,9 +17,14 @@ export default class Restaurants extends React.Component<IRestaurantsProps> {
         return (
             <div>
                 <h2>Restaurants</h2>
-                {this.props.restaurants.map(_ => (
+                {this.props.restaurants.all.map(_ => (
                     <div key={_.id}>
-                        <h3>{_.name} ({_.rating})</h3>
+                        <h3>
+                            <Link to={`/restaurants/${_.id}`}>
+                                {_.name}
+                            </Link>
+                            ({_.rating})
+                        </h3>
                         <h4>{_.address}</h4>
                     </div>
                 ))}

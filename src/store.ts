@@ -1,17 +1,18 @@
 import { createStore, combineReducers } from 'redux';
-import logins from './reducers/logins';
+import user from './reducers/user';
 import restaurants from './reducers/restaurants';
 
 export interface ILogin {
     userName: string;
     canCreateRestaurant: boolean;
-    active: boolean;
+    orders?: IOrder[];
 }
 
 export interface IMeal {
     name: string;
     description: string;
     price: number;
+    id: number;
 }
 
 export interface IRestaurant {
@@ -22,16 +23,31 @@ export interface IRestaurant {
     meals?: IMeal[];
 }
 
-export interface IStoreState {
+export interface IUser {
     logins: ILogin[];
-    restaurants?: IRestaurant[];
-    selectedRestaurant?: IRestaurant;
+    current: ILogin;
+}
+
+export interface IRestaurants {
+    all: IRestaurant[];
+    selected?: IRestaurant;
+}
+
+export interface IOrder {
+    meal: IMeal;
+    quantity: number;
+    user: ILogin;
+}
+
+export interface IStoreState {
+    user: IUser;
+    restaurants: IRestaurants;
 }
 
 export default createStore<IStoreState, any, any, {}>(
     combineReducers({
         restaurants,
-        logins
+        user
     }),
     (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );

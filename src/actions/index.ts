@@ -1,4 +1,7 @@
 import { ISwitchLogin } from './login';
-import { IFetchRestaurants } from './restaurant';
+import { IFetchRestaurants, ISelectRestaurant } from './restaurant';
 
-export type RestonodeAction = ISwitchLogin | IFetchRestaurants;
+export type RestonodeAction =
+    ISwitchLogin
+    | IFetchRestaurants
+    | ISelectRestaurant;

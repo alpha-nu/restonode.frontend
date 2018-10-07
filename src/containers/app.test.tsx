@@ -33,31 +33,30 @@ test('App container is connected to the store', () => {
 
 test('map logins state to props', () => {
     const initialState: IStoreState = {
-        logins: [{
-            userName: 'test',
-            canCreateRestaurant: false,
-            active: true
-        }], restaurants: []
+        restaurants: {all: []},
+        user: {
+            logins: [],
+            current: {
+                userName: 'test',
+                canCreateRestaurant: false
+            }
+        }
     };
 
     const mappedProps = mapStateToProps(initialState);
 
-    expect(mappedProps.logins).toEqual([{
-        userName: 'test',
-        canCreateRestaurant: false,
-        active: true
-    }]);
+    expect(mappedProps.user).toEqual(initialState.user);
 });
 
 test('map restaurants to props', () => {
     const initialState: IStoreState = {
-        logins: [],
-        restaurants: [{ name: 'test', address: 'address', rating: '7', id: 1 }]
+        user: { logins: [], current: { userName: '', canCreateRestaurant: false } },
+        restaurants: { all: [{ name: 'test', address: 'address', rating: '7', id: 1 }] }
     };
 
     const mappedProps = mapStateToProps(initialState);
 
-    expect(mappedProps.restaurants).toEqual([{
+    expect(mappedProps.restaurants.all).toEqual([{
         name: 'test',
         address: 'address',
         rating: '7',

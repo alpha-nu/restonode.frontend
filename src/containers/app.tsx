@@ -7,7 +7,7 @@ import { switchLogin } from '../actions/login';
 import { fetchRestaurants } from '../actions/restaurant';
 
 export const mapStateToProps = (state: IStoreState) => ({
-    logins: state.logins,
+    user: state.user,
     restaurants: state.restaurants
 });
 
@@ -16,4 +16,4 @@ export const mapDispatchToProps = (dispatch: Dispatch<RestonodeAction>) => ({
     fetchRestaurants: () => fetchRestaurants()(dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps, undefined, { pure: false })(App);
