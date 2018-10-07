@@ -9,7 +9,7 @@ import { IUser } from '../../store';
 enzyme.configure({ adapter: new Adapter() });
 
 test('<Navigation/> renders its child components', () => {
-    const user: IUser = { logins: [], current: { userName: '', canCreateRestaurant: false } };
+    const user: IUser = { logins: [], current: { userName: '', canCreateRestaurant: false, orders: [] } };
     const navigation = shallow(<Navigation user={user} switchLogin={jest.fn()} />);
     expect(navigation.find(Logins).exists()).toBe(true);
 });

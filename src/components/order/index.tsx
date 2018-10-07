@@ -1,6 +1,11 @@
 import * as React from 'react';
+import { ILogin } from '../../store';
 
-export default class Order extends React.Component {
+export interface IOrderProps {
+    loggedInUser: ILogin;
+}
+
+export default class Order extends React.Component<IOrderProps> {
     public render() {
         return (
             <div>

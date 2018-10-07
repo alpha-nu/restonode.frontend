@@ -10,7 +10,7 @@ import { SWITCH_LOGIN } from '../actions/login';
 import { FETCH_RESTAURANTS_REQUEST, FETCH_RESTAURANTS_SUCCESS, SELECT_RESTAURANT } from '../actions/restaurant';
 import * as nock from 'nock';
 import { apiEndPoint } from '../config/endpoints';
-import { FETCH_MEALS_REQUEST, FETCH_MEALS_SUCCESS } from '../actions/meal';
+import { FETCH_MEALS_REQUEST, FETCH_MEALS_SUCCESS, ADD_MEAL_TO_ORDER } from '../actions/meal';
 
 const mockStore = configureMockStore();
 
@@ -39,7 +39,8 @@ test('map logins state to props', () => {
             logins: [],
             current: {
                 userName: 'test',
-                canCreateRestaurant: false
+                canCreateRestaurant: false,
+                orders: []
             }
         }
     };
@@ -51,7 +52,7 @@ test('map logins state to props', () => {
 
 test('map restaurants to props', () => {
     const initialState: IStoreState = {
-        user: { logins: [], current: { userName: '', canCreateRestaurant: false } },
+        user: { logins: [], current: { userName: '', canCreateRestaurant: false, orders: [] } },
         restaurants: { all: [{ name: 'test', address: 'address', rating: '7', id: 1 }] }
     };
 
@@ -157,5 +158,28 @@ test('map fetchMeals to store dispatch', async () => {
                 description: 'address',
                 price: 8
             }]
+    });
+});
+
+test('map add meal to store dispatch', () => {
+    const dispatcher = jest.fn();
+
+    const mappedDispatches = mapDispatchToProps(dispatcher);
+
+    mappedDispatches.addMeal({
+        id: 1,
+        name: 'meal',
+        description: 'fatty',
+        price: 40
+    });
+
+    expect(dispatcher.mock.calls[0][0]).toEqual({
+        type: ADD_MEAL_TO_ORDER,
+        meal: {
+            id: 1,
+            name: 'meal',
+            description: 'fatty',
+            price: 40
+        }
     });
 });

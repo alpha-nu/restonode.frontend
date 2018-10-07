@@ -5,7 +5,7 @@ import restaurants from './reducers/restaurants';
 export interface ILogin {
     userName: string;
     canCreateRestaurant: boolean;
-    orders?: IOrder[];
+    orders: IOrder[];
 }
 
 export interface IMeal {
@@ -36,7 +36,6 @@ export interface IRestaurants {
 export interface IOrder {
     meal: IMeal;
     quantity: number;
-    user: ILogin;
 }
 
 export interface IStoreState {

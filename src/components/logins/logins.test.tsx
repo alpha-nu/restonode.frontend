@@ -8,10 +8,10 @@ import { IUser } from '../../store';
 enzyme.configure({ adapter: new Adapter() });
 
 const user: IUser = {
-    current: { userName: 'joe', canCreateRestaurant: false },
+    current: { userName: 'joe', canCreateRestaurant: false, orders: [] },
     logins: [
-        { userName: 'joe', canCreateRestaurant: false },
-        { userName: 'pete', canCreateRestaurant: false }
+        { userName: 'joe', canCreateRestaurant: false, orders: [] },
+        { userName: 'pete', canCreateRestaurant: false, orders: [] }
     ]
 };
 
