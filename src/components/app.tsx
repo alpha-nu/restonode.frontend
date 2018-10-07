@@ -26,13 +26,11 @@ export default class App extends React.Component<ILoginsProps & IRestaurantsProp
                                 selectRestaurant={this.props.selectRestaurant}
                             />
                         </Route>
-                        <Route path='/restaurants/:id' render={(params) => {
-                            return (
-                                <Menu {...params}
-                                    fetchMeals={this.props.fetchMeals}
-                                    selectedRestaurant={this.props.restaurants.selected!} />
-                            );
-                        }} />
+                        <Route path='/restaurants/:id'>
+                            <Menu
+                                fetchMeals={this.props.fetchMeals}
+                                selectedRestaurant={this.props.restaurants.selected!} />
+                        </Route>
                     </Switch>
                 </main>
             </div>
