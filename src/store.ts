@@ -36,6 +36,7 @@ export interface IRestaurants {
 export interface IOrder {
     meal: IMeal;
     quantity: number;
+    total: number;
 }
 
 export interface IStoreState {

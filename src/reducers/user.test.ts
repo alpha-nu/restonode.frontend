@@ -50,7 +50,8 @@ test('adds a meal to a user order', () => {
                 name: 'burger',
                 price: 120
             },
-            quantity: 1
+            quantity: 1,
+            total: 120
         }
     ]);
 });
@@ -68,7 +69,8 @@ test('increments the quantity if a meal already exists in the order', () => {
                     name: 'burger',
                     price: 120
                 },
-                quantity: 1
+                quantity: 1,
+                total: 120
             }]
         }
     };
@@ -90,7 +92,8 @@ test('increments the quantity if a meal already exists in the order', () => {
                 name: 'burger',
                 price: 120
             },
-            quantity: 2
+            quantity: 2,
+            total: 240
         }
     ]);
 });

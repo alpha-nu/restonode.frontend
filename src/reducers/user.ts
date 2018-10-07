@@ -16,7 +16,9 @@ export default (user: IUser = initialState, action: ISwitchLogin | IModifyOrder)
         let updatedOrders: IOrder[] = [];
         user.current.orders.forEach(order => {
             if (order.meal.id === action.meal!.id) {
-                updatedOrders.push({ ...order, quantity: order.quantity + 1 });
+                const quantity = order.quantity + 1;
+                const total = quantity * order.meal.price;
+                updatedOrders.push({ ...order, quantity, total});
             }
             else {
                 updatedOrders.push({ ...order });
@@ -24,7 +26,7 @@ export default (user: IUser = initialState, action: ISwitchLogin | IModifyOrder)
         });
 
         if (updatedOrders.length === 0) {
-            updatedOrders = [{ meal: action.meal!, quantity: 1 }];
+            updatedOrders = [{ meal: action.meal!, quantity: 1, total: action.meal!.price }];
         }
 
         return {
