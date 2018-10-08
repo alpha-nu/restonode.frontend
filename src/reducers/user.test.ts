@@ -2,6 +2,7 @@ import reducer from './user';
 import { SWITCH_LOGIN } from '../actions/login';
 import { IUser } from '../store';
 import { ADD_MEAL_TO_ORDER } from '../actions/meal';
+import { ORDER_CHECKOUT_SUCCESS } from '../actions/checkout';
 
 test('sets loggedIn flag to true when user is switched and resets the rest', () => {
     const initialLogins: IUser = {
@@ -168,4 +169,40 @@ test('increments the quantity if a meal already exists in the order', () => {
             total: 40
         }
     ]);
+});
+
+test('on successfull checkout populates confirmation order and clears out orders', () => {
+    const state: IUser = {
+        logins: [],
+        current: {
+            canCreateRestaurant: false, userName: 'test', orders: [
+                { meal: { id: 1, name: '', description: '', price: 0 }, quantity: 1, total: 0 }
+            ]
+        }
+    };
+
+    const order = {
+        deliveries: [
+            {
+                order: { quantity: 1, meal: '' },
+                eta: '',
+                restaurant: '',
+                subTotal: 0
+            }
+        ],
+        customer: {
+            userName: '',
+            address: '',
+            phone: ''
+        },
+        grandTotal: 0
+    };
+
+    const user = reducer(state, {
+        type: ORDER_CHECKOUT_SUCCESS,
+        response: order
+    });
+
+    expect(user.current.confirmation).toEqual(order);
+    expect(user.current.orders).toEqual([]);
 });

@@ -6,6 +6,7 @@ export interface ILogin {
     userName: string;
     canCreateRestaurant: boolean;
     orders: IOrder[];
+    confirmation?: IOrderConfirmation;
 }
 
 export interface IMeal {
@@ -34,9 +35,22 @@ export interface IRestaurants {
 }
 
 export interface IOrder {
+    total: number;
     meal: IMeal;
     quantity: number;
-    total: number;
+}
+
+export interface IDelivery {
+    restaurant: string;
+    eta: string;
+    subTotal: number;
+    order: { meal: string, quantity: number };
+}
+
+export interface IOrderConfirmation {
+    deliveries: IDelivery[];
+    customer: {userName: string, phone: string, address: string};
+    grandTotal: number;
 }
 
 export interface IStoreState {

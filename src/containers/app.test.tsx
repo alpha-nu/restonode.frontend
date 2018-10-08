@@ -5,12 +5,13 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import App, { mapStateToProps, mapDispatchToProps } from './app';
-import { IStoreState } from '../store';
+import { IStoreState, ILogin } from '../store';
 import { SWITCH_LOGIN } from '../actions/login';
 import { FETCH_RESTAURANTS_REQUEST, FETCH_RESTAURANTS_SUCCESS, SELECT_RESTAURANT } from '../actions/restaurant';
 import * as nock from 'nock';
 import { apiEndPoint } from '../config/endpoints';
 import { FETCH_MEALS_REQUEST, FETCH_MEALS_SUCCESS, ADD_MEAL_TO_ORDER } from '../actions/meal';
+import { ORDER_CHECKOUT_REQUEST, ORDER_CHECKOUT_SUCCESS } from '../actions/checkout';
 
 const mockStore = configureMockStore();
 
@@ -181,5 +182,34 @@ test('map add meal to store dispatch', () => {
             description: 'fatty',
             price: 40
         }
+    });
+});
+
+test('map checkout to dispatches', async () => {
+    nock(apiEndPoint).post('/v1/order-management/orders',
+        {
+            meals: [{ id: 1, quantity: 2 }],
+            userName: 'user'
+        }).reply(201, {
+            deliveries: []
+        }, { 'Access-Control-Allow-Origin': '*' });
+
+    const dispatcher = jest.fn();
+    const mappedDispatches = mapDispatchToProps(dispatcher);
+    const user: ILogin = {
+        canCreateRestaurant: false, userName: 'user', orders: [
+            { quantity: 2, meal: { id: 1, name: 'meal', description: '', price: 100 }, total: 100 }
+        ]
+    };
+
+    await mappedDispatches.checkout(user);
+
+    expect(dispatcher.mock.calls[0][0]).toEqual({
+        type: ORDER_CHECKOUT_REQUEST
+    });
+
+    expect(dispatcher.mock.calls[1][0]).toEqual({
+        type: ORDER_CHECKOUT_SUCCESS,
+        response: { deliveries: [] }
     });
 });

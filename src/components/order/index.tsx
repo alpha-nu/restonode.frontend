@@ -3,6 +3,7 @@ import { ILogin, IOrder } from '../../store';
 
 export interface IOrderProps {
     loggedInUser: ILogin;
+    checkout: (user: ILogin) => void;
 }
 
 export default class Order extends React.Component<IOrderProps> {
@@ -14,11 +15,19 @@ export default class Order extends React.Component<IOrderProps> {
         </div>
     );
     public render() {
-        return (
-            <div>
-                <h2>online order</h2>
-                {this.props.loggedInUser.orders.map(this.orderItem)}
-            </div>
-        );
+        if (this.props.loggedInUser.orders.length === 0) {
+            return (<h2>No Orders.</h2>);
+        }
+        else {
+            return (
+                <div>
+                    <h2>online order</h2>
+                    {this.props.loggedInUser.orders.map(this.orderItem)}
+                    <button onClick={
+                        () => this.props.checkout(this.props.loggedInUser)
+                    } className='checkout'>Checkout</button>
+                </div>
+            );
+        }
     }
 }

@@ -23,6 +23,7 @@ test('<App /> renders its child components and defaults to restaurant view', () 
         <MemoryRouter initialEntries={['/restaurants', '/restaurants/1']} initialIndex={0}>
             <App user={user}
                 addMeal={jest.fn()}
+                checkout={jest.fn()}
                 loggedInUser={user.current}
                 switchLogin={jest.fn()}
                 restaurants={{ all: [], selected: { address: '', id: 0, name: '', rating: '' } }}
@@ -43,6 +44,7 @@ test('<App /> renders menu view for a selected restaurant', () => {
         <MemoryRouter initialEntries={['/restaurants', '/restaurants/1']} initialIndex={1}>
             <App user={user}
                 addMeal={jest.fn()}
+                checkout={jest.fn()}
                 loggedInUser={user.current}
                 switchLogin={jest.fn()}
                 restaurants={{ all: [], selected: { address: '', id: 0, name: '', rating: '' } }}

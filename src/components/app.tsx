@@ -18,7 +18,7 @@ export default class App extends React.Component<ILoginsProps
                         user={this.props.user}
                         switchLogin={this.props.switchLogin}
                     />
-                    <Order loggedInUser={this.props.user.current} />
+                    <Order loggedInUser={this.props.user.current} checkout={this.props.checkout} />
                 </header>
                 <main>
                     <Switch>

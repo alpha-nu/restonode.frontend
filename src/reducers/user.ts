@@ -1,6 +1,7 @@
 import { IUser } from '../store';
 import { ISwitchLogin, SWITCH_LOGIN } from '../actions/login';
 import { IModifyOrder, ADD_MEAL_TO_ORDER } from '../actions/meal';
+import { IOrderCheckout, ORDER_CHECKOUT_SUCCESS } from '../actions/checkout';
 
 const initialState: IUser = {
     logins: [
@@ -11,7 +12,7 @@ const initialState: IUser = {
     current: { userName: 'anonymous', canCreateRestaurant: false, orders: [] }
 };
 
-export default (user: IUser = initialState, action: ISwitchLogin | IModifyOrder): IUser => {
+export default (user: IUser = initialState, action: ISwitchLogin | IModifyOrder | IOrderCheckout): IUser => {
     if (action.type === ADD_MEAL_TO_ORDER) {
         let orders = user.current.orders.map((order) => {
             let quantity = order.quantity;
@@ -47,6 +48,17 @@ export default (user: IUser = initialState, action: ISwitchLogin | IModifyOrder)
         return {
             ...user,
             current: { ...user.logins.find(_ => _.userName === action.userName)! }
+        };
+    }
+
+    if (action.type === ORDER_CHECKOUT_SUCCESS) {
+        return {
+            ...user,
+            current: {
+                ...user.current,
+                orders: [],
+                confirmation: action.response
+            }
         };
     }
 

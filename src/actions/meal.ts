@@ -3,8 +3,6 @@ import { Dispatch } from 'redux';
 import { RestonodeAction } from '.';
 import axios from 'axios';
 import { apiEndPoint } from '../config/endpoints';
-const FETCH_MEALS = 'FETCH_MEALS';
-export type FETCH_MEALS = typeof FETCH_MEALS;
 
 export const FETCH_MEALS_SUCCESS = 'FETCH_MEALS_SUCCESS';
 export const FETCH_MEALS_ERROR = 'FETCH_MEALS_ERROR';
