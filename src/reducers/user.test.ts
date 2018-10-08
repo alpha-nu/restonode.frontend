@@ -23,7 +23,7 @@ test('return initial state for unknown action types', () => {
     expect(logins).toBe(initialState);
 });
 
-test('adds a meal to a user order', () => {
+test('adds a meal to an empty user order', () => {
     const state: IUser = {
         logins: [],
         current: {
@@ -56,6 +56,58 @@ test('adds a meal to a user order', () => {
     ]);
 });
 
+test('adds a meal to a user order', () => {
+    const state: IUser = {
+        logins: [],
+        current: {
+            userName: 'hungryJoe',
+            canCreateRestaurant: false,
+            orders: [{
+                meal: {
+                    id: 2,
+                    description: 'dessert',
+                    name: 'pie',
+                    price: 40
+                },
+                quantity: 1,
+                total: 40
+            }]
+        }
+    };
+
+    const user: IUser = reducer(state, {
+        type: ADD_MEAL_TO_ORDER, meal: {
+            id: 1,
+            description: 'tasty',
+            name: 'burger',
+            price: 120
+        }
+    });
+
+    expect(user.current.orders).toEqual([
+        {
+            meal: {
+                id: 2,
+                description: 'dessert',
+                name: 'pie',
+                price: 40
+            },
+            quantity: 1,
+            total: 40
+        },
+        {
+            meal: {
+                id: 1,
+                description: 'tasty',
+                name: 'burger',
+                price: 120
+            },
+            quantity: 1,
+            total: 120
+        }
+    ]);
+});
+
 test('increments the quantity if a meal already exists in the order', () => {
     const state: IUser = {
         logins: [],
@@ -71,6 +123,16 @@ test('increments the quantity if a meal already exists in the order', () => {
                 },
                 quantity: 1,
                 total: 120
+            },
+            {
+                meal: {
+                    id: 2,
+                    description: 'yummy',
+                    name: 'pie',
+                    price: 20
+                },
+                quantity: 2,
+                total: 40
             }]
         }
     };
@@ -94,6 +156,16 @@ test('increments the quantity if a meal already exists in the order', () => {
             },
             quantity: 2,
             total: 240
+        },
+        {
+            meal: {
+                id: 2,
+                description: 'yummy',
+                name: 'pie',
+                price: 20
+            },
+            quantity: 2,
+            total: 40
         }
     ]);
 });

@@ -32,7 +32,8 @@ export default class App extends React.Component<ILoginsProps
                         <Route path='/restaurants/:id'>
                             <Menu
                                 fetchMeals={this.props.fetchMeals}
-                                selectedRestaurant={this.props.restaurants.selected!} />
+                                selectedRestaurant={this.props.restaurants.selected!}
+                                addMeal={this.props.addMeal} />
                         </Route>
                     </Switch>
                 </main>

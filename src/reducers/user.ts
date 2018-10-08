@@ -1,4 +1,4 @@
-import { IUser, IOrder } from '../store';
+import { IUser } from '../store';
 import { ISwitchLogin, SWITCH_LOGIN } from '../actions/login';
 import { IModifyOrder, ADD_MEAL_TO_ORDER } from '../actions/meal';
 
@@ -13,27 +13,32 @@ const initialState: IUser = {
 
 export default (user: IUser = initialState, action: ISwitchLogin | IModifyOrder): IUser => {
     if (action.type === ADD_MEAL_TO_ORDER) {
-        let updatedOrders: IOrder[] = [];
-        user.current.orders.forEach(order => {
+        let orders = user.current.orders.map((order) => {
+            let quantity = order.quantity;
+            let total = order.total;
             if (order.meal.id === action.meal!.id) {
-                const quantity = order.quantity + 1;
-                const total = quantity * order.meal.price;
-                updatedOrders.push({ ...order, quantity, total});
+                quantity += 1;
+                total = order.meal.price * quantity;
             }
-            else {
-                updatedOrders.push({ ...order });
-            }
+            return {
+                meal: { ...order.meal }, quantity, total
+            };
         });
 
-        if (updatedOrders.length === 0) {
-            updatedOrders = [{ meal: action.meal!, quantity: 1, total: action.meal!.price }];
+        if (user.current.orders.find(_ => _.meal.id === action.meal!.id) === undefined) {
+            orders = [...orders,
+            {
+                meal: action.meal!,
+                quantity: 1,
+                total: action.meal!.price
+            }];
         }
 
         return {
             ...user,
             current: {
                 ...user.current,
-                orders: updatedOrders
+                orders
             }
         };
     }

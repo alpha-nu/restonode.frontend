@@ -4,6 +4,7 @@ import { IRestaurant, IMeal } from '../../store';
 export interface IMenuProps {
     fetchMeals: (restaurantId: number) => void;
     selectedRestaurant?: IRestaurant;
+    addMeal: (meal: IMeal) => void;
 }
 
 export default class Menu extends React.Component<IMenuProps> {
@@ -12,13 +13,16 @@ export default class Menu extends React.Component<IMenuProps> {
         this.props.fetchMeals!(this.props.selectedRestaurant!.id);
     }
 
-    mealFragment = ({ id, name, description, price }: IMeal) => (
-        <div className='meal' key={id}>
-            <span className='meal-name'>{name}</span>
-            <span className='meal-price'>{price}</span>
-            <span className='meal-description'>{description}</span>
+    mealFragment = (meal: IMeal) => (
+        <div className='meal' key={meal.id}>
+            <span className='meal-name'>{meal.name}</span>
+            <span className='meal-price'>{meal.price}</span>
+            <span className='meal-description'>{meal.description}</span>
+            <button
+                className='add-meal'
+                onClick={() => this.props.addMeal(meal)} >+</button>
         </div>
-    )
+    );
 
     public render() {
         return (
