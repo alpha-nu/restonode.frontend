@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ILogin, IOrder } from '../../store';
+import { Link } from 'react-router-dom';
 
 export interface IOrderProps {
     loggedInUser: ILogin;
@@ -23,9 +24,12 @@ export default class Order extends React.Component<IOrderProps> {
                 <div>
                     <h2>online order</h2>
                     {this.props.loggedInUser.orders.map(this.orderItem)}
-                    <button onClick={
-                        () => this.props.checkout(this.props.loggedInUser)
-                    } className='checkout'>Checkout</button>
+                    <Link
+                        onClick={
+                            () => {
+                                this.props.checkout(this.props.loggedInUser);
+                            }
+                        } to='/order-confirmation' className='checkout'>Checkout</Link>
                 </div>
             );
         }

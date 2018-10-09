@@ -41,10 +41,10 @@ export interface IOrder {
 }
 
 export interface IDelivery {
-    restaurant: string;
+    restaurant: {name: string, email: string};
     eta: string;
     subTotal: number;
-    order: { meal: string, quantity: number };
+    meals: Array<{ name: string, quantity: number }>;
 }
 
 export interface IOrderConfirmation {

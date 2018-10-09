@@ -171,7 +171,7 @@ test('increments the quantity if a meal already exists in the order', () => {
     ]);
 });
 
-test('on successfull checkout populates confirmation order and clears out orders', () => {
+test('on successful checkout populates confirmation order and clears out orders', () => {
     const state: IUser = {
         logins: [],
         current: {
@@ -184,9 +184,9 @@ test('on successfull checkout populates confirmation order and clears out orders
     const order = {
         deliveries: [
             {
-                order: { quantity: 1, meal: '' },
+                meals: [{ quantity: 1, name: '' }],
                 eta: '',
-                restaurant: '',
+                restaurant: {name: '', email: ''},
                 subTotal: 0
             }
         ],

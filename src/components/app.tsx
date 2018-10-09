@@ -5,6 +5,7 @@ import Navigation from './navigation';
 import Order, { IOrderProps } from './order';
 import { ILoginsProps } from './logins';
 import Menu, { IMenuProps } from './menu';
+import Confirmation from './confirmation';
 
 export default class App extends React.Component<ILoginsProps
     & IRestaurantsProps
@@ -34,6 +35,9 @@ export default class App extends React.Component<ILoginsProps
                                 fetchMeals={this.props.fetchMeals}
                                 selectedRestaurant={this.props.restaurants.selected!}
                                 addMeal={this.props.addMeal} />
+                        </Route>
+                        <Route path='/order-confirmation'>
+                            <Confirmation order={this.props.loggedInUser.confirmation!} />
                         </Route>
                     </Switch>
                 </main>
