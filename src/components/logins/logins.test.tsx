@@ -17,13 +17,14 @@ const user: IUser = {
 
 test('<Logins/> renders a list of user logins', () => {
     const logins = shallow(<Logins user={user} switchLogin={jest.fn()} />);
-    expect(logins.find('.user-login').first().text()).toEqual('joe');
-    expect(logins.find('.user-login').last().text()).toEqual('pete');
+    expect(logins.find('.user-login')).toHaveLength(2);
+    expect(logins.html()).toContain('joe');
+    expect(logins.html()).toContain('pete');
 });
 
 test('<Logins/> dispatches switch user event', () => {
     const onSwitchLogin = jest.fn();
     const logins = shallow(<Logins user={user} switchLogin={onSwitchLogin} />);
-    logins.find('.user-login').first().simulate('click');
+    logins.find('WithStyles(MenuItem)').first().simulate('click');
     expect(onSwitchLogin.mock.calls[0][0]).toEqual('joe');
 });

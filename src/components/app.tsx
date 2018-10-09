@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Restaurants, { IRestaurantsProps } from './restaurants';
 import Navigation from './navigation';
-import Order, { IOrderProps } from './order';
+import { IOrderProps } from './order';
 import { ILoginsProps } from './logins';
 import Menu, { IMenuProps } from './menu';
 import Confirmation from './confirmation';
@@ -11,6 +11,7 @@ export default class App extends React.Component<ILoginsProps
     & IRestaurantsProps
     & IMenuProps
     & IOrderProps> {
+
     public render() {
         return (
             <div>
@@ -18,8 +19,9 @@ export default class App extends React.Component<ILoginsProps
                     <Navigation
                         user={this.props.user}
                         switchLogin={this.props.switchLogin}
+                        loggedInUser={this.props.loggedInUser}
+                        checkout={this.props.checkout}
                     />
-                    <Order loggedInUser={this.props.user.current} checkout={this.props.checkout} />
                 </header>
                 <main>
                     <Switch>
