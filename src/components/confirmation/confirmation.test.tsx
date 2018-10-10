@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import Confirmation from '.';
 import { IOrderConfirmation } from 'src/store';
+import { MemoryRouter } from 'react-router';
 
 enzyme.configure({ adapter: new Adapter() });
 
@@ -14,21 +15,22 @@ test('renders order confirmation', () => {
                 restaurant: { name: 'fancy eats', email: '' },
                 meals: [{ name: 'burger', quantity: 2 }],
                 eta: '37 mins',
-                subTotal: 100
+                subTotal: 999
             }
         ],
-        grandTotal: 100,
+        grandTotal: 1111,
         customer: {
             address: '',
             phone: '',
             userName: ''
         }
     };
-    const confirmation = shallow(<Confirmation order={order} />);
+    const confirmation = shallow(<MemoryRouter><Confirmation order={order} /></MemoryRouter>);
 
-    expect(confirmation.find('.delivery-restaurant').text()).toEqual('fancy eats');
-    expect(confirmation.find('.delivery-eta').text()).toEqual('37 mins');
-    expect(confirmation.find('.delivery-subtotal').text()).toEqual('100');
-    expect(confirmation.find('.delivery-grandtotal').text()).toEqual('100');
-    expect(confirmation.find('.delivery-meal').first().text()).toEqual('burger (x2)');
+    const html = confirmation.html();
+    expect(html).toContain('fancy eats');
+    expect(html).toContain('37 mins');
+    expect(html).toContain('1111');
+    expect(html).toContain('999');
+    expect(html).toContain('burger (x2)');
 });

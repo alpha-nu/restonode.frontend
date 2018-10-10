@@ -10,7 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountBox';
 import Shopping from '@material-ui/icons/ShoppingCart';
 import CssBaseLine from '@material-ui/core/CssBaseline';
 import Logins, { ILoginsProps } from '../logins';
-import { Drawer } from '@material-ui/core';
+import { Drawer, LinearProgress } from '@material-ui/core';
 import Order, { IOrderProps } from '../order';
 
 const styles = (theme: Theme) => ({
@@ -102,6 +102,7 @@ class Navigation extends React.Component<ILoginsProps & IOrderProps & WithStyles
                         </div>
                     </Toolbar>
                 </AppBar>
+                <LinearProgress color='secondary' />
                 <Menu
                     anchorEl={anchorEl}
                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}

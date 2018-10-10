@@ -58,7 +58,7 @@ class Order extends React.Component<WithStyles<typeof styles> & IOrderProps> {
                             alignItems='center'>
                             <Link onClick={() => this.props.checkout(this.props.loggedInUser)}
                                 to='/order-confirmation' style={{ textDecoration: 'none' }}>
-                                <Button size='medium' variant='contained' color='primary'>
+                                <Button className='checkout' size='medium' variant='contained' color='primary'>
                                     Checkout
                                     <CheckoutIcon />
                                 </Button>
