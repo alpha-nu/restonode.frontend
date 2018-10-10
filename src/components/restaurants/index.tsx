@@ -44,7 +44,7 @@ const styles = (theme: Theme) => ({
     }
 });
 
-export class Restaurants extends React.Component<WithStyles<typeof styles> & IRestaurantsProps> {
+class Restaurants extends React.Component<WithStyles<typeof styles> & IRestaurantsProps> {
 
     componentDidMount() {
         this.props.fetchRestaurants();

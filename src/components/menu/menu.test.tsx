@@ -14,15 +14,16 @@ test('renders meals of a selected restaurant', () => {
         address: '',
         rating: '',
         meals: [
-            { id: 1, description: 'tasty', name: 'noodles', price: 100 }
+            { id: 1, description: 'tasty', name: 'noodles', price: 919 }
         ]
     };
     const menu = shallow(<Menu addMeal={jest.fn()} selectedRestaurant={restaurant} fetchMeals={jest.fn()} />);
 
-    expect(menu.find('.selected-restaurant-name').text()).toEqual('fancy eats');
-    expect(menu.find('.meal-name').text()).toEqual('noodles');
-    expect(menu.find('.meal-description').text()).toEqual('tasty');
-    expect(menu.find('.meal-price').text()).toEqual('100');
+    const html = menu.html();
+    expect(html).toContain('fancy eats');
+    expect(html).toContain('noodles');
+    expect(html).toContain('tasty');
+    expect(html).toContain('919');
 });
 
 test('dispatches addMeal event', () => {
@@ -37,13 +38,13 @@ test('dispatches addMeal event', () => {
         ]
     };
     const addMeal = jest.fn();
-    const menu = shallow(<Menu
+    const menu = enzyme.mount(<Menu
         addMeal={addMeal}
         selectedRestaurant={restaurant}
         fetchMeals={jest.fn()} />);
 
-    menu.find('.add-meal').first().simulate('click');
-    menu.find('.add-meal').last().simulate('click');
+    menu.find('WithStyles(Button)').first().simulate('click');
+    menu.find('WithStyles(Button)').last().simulate('click');
 
     expect(addMeal.mock.calls[0][0]).toEqual({
         id: 1,
