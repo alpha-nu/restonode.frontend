@@ -46,7 +46,12 @@ class Order extends React.Component<WithStyles<typeof styles> & IOrderProps> {
         const { loggedInUser, classes } = this.props;
 
         if (loggedInUser.orders.length === 0) {
-            return (<h2>No Orders.</h2>);
+            return (
+                <div className={`${classes.layout} ${classes.cardGrid}`}>
+                    <Typography gutterBottom color='textPrimary' variant='h5'>
+                        Go ahead and add some meals!
+                    </Typography>
+                </div>);
         }
         else {
             return (
