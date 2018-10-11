@@ -5,7 +5,6 @@ import { IOrderCheckout, ORDER_CHECKOUT_SUCCESS } from '../actions/checkout';
 
 const initialState: IUser = {
     logins: [
-        { userName: 'anonymous', canCreateRestaurant: false, orders: [] },
         { userName: 'hungryJoe', canCreateRestaurant: false, orders: [] },
         { userName: 'mrBigShot', canCreateRestaurant: true, orders: [] }
     ],
