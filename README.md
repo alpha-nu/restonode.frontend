@@ -4,7 +4,7 @@
 
 I chose React as a frontend framework with the technical motivation to produce highly testable code without the usual hassle of testing react components that I have seen in many other projects. Redux is also used for state management. My technical approach to testing and implementing react/redux is:
 
-- Do not **mount** connected components in tests, rather test mapStateToProps and mapStateToDispatch as pure functions and export the wrapped component along side its container so that it can be **shallow** tested without the need to mock the store.
+- Do not **mount** connected components in tests, rather test mapStateToProps and mapStateToDispatch as pure functions and export the wrapped component along side its container so that it can be **shallow** tested without the need to mock the store. *However, using `material-ui` framework seems to complicate the testing setup and some components needed to be deep rendered with `mount`*
 - Avoid elaborate assertions on html and styles in component tests because it yields very brittle tests, rather, assert on rendered code properties without styles.
 - If using redux or other state management, start with designing the action creators. Understanding what actions you application and its components will dispatch help in designing you application state and producing an object graph that can be split up across multiple reducers
 
@@ -34,4 +34,12 @@ yarn build
 yarn test
 yarn test --coverage 
 ```
+
+## API endpoints
+For simplicity, the configuration for the backend API is located at: `src/config/endpoints.ts`
+```TypeScript
+export const apiEndPoint = 'http://localhost:3001';
+```
+
+It assumes the API is running on its default port. For the frontend, there is no dotenv mechanism and therefore the change needs to happen in this file for the application to run on a different port.
 
