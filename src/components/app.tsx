@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Restaurants, { IRestaurantsProps } from './restaurants';
 import Navigation, { INotification } from './navigation';
 import { IOrderProps } from './order';
@@ -44,6 +44,7 @@ export default class App extends React.Component<ILoginsProps
                         <Route path='/order-confirmation'>
                             <Confirmation order={this.props.loggedInUser.confirmation!} />
                         </Route>
+                        <Redirect from='/' to='/restaurants' />
                     </Switch>
                 </main>
             </div>
