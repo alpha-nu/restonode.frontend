@@ -10,8 +10,10 @@ import AccountCircle from '@material-ui/icons/AccountBox';
 import Shopping from '@material-ui/icons/ShoppingCart';
 import CssBaseLine from '@material-ui/core/CssBaseline';
 import Logins, { ILoginsProps } from '../logins';
-import { Drawer, LinearProgress, Grid } from '@material-ui/core';
+import { Drawer, LinearProgress, Grid, Button } from '@material-ui/core';
 import Order, { IOrderProps } from '../order';
+import { Link } from 'react-router-dom';
+import RestaurantIcon from '@material-ui/icons/Restaurant';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -19,10 +21,6 @@ const styles = (theme: Theme) => ({
     },
     grow: {
         flexGrow: 1
-    },
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20
     },
     title: {
         display: 'none',
@@ -35,6 +33,9 @@ const styles = (theme: Theme) => ({
         [theme.breakpoints.up('md')]: {
             display: 'flex'
         }
+    },
+    appBar: {
+        padding: '15px'
     }
 });
 
@@ -88,10 +89,17 @@ class Navigation extends React.Component<
             <div className={classes.root}>
                 <CssBaseLine />
                 <AppBar position='static'>
-                    <Toolbar>
+                    <Toolbar className={classes.appBar}>
                         <Typography className={classes.title} variant='title' color='inherit' noWrap>
-                            Restonode
+                            R.e.s.t.o.n.o.d.e
                         </Typography>
+                        <div className={classes.grow} />
+                        <Link style={{ textDecoration: 'none' }} to='/restaurants'>
+                            <Button variant='extendedFab' color='primary'>
+                                view restaurants
+                                <RestaurantIcon />
+                            </Button>
+                        </Link>
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
                             <IconButton onClick={this.toggleShoppingCart} color='inherit'>
