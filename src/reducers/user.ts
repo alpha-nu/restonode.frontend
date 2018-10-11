@@ -1,7 +1,7 @@
 import { IUser } from '../store';
 import { ISwitchLogin, SWITCH_LOGIN } from '../actions/login';
 import { IModifyOrder, ADD_MEAL_TO_ORDER } from '../actions/meal';
-import { IOrderCheckout, ORDER_CHECKOUT_SUCCESS } from '../actions/checkout';
+import { IOrderCheckout, ORDER_CHECKOUT_SUCCESS, ORDER_CHECKOUT_REQUEST } from '../actions/checkout';
 
 const initialState: IUser = {
     logins: [
@@ -49,6 +49,17 @@ export default (user: IUser = initialState, action: ISwitchLogin | IModifyOrder 
         return {
             ...user,
             current: { ...user.logins.find(_ => _.userName === action.userName)! }
+        };
+    }
+
+    if (action.type === ORDER_CHECKOUT_REQUEST) {
+        return {
+            ...user,
+            current: {
+                ...user.current,
+                orders: [],
+                confirmation: undefined
+            }
         };
     }
 

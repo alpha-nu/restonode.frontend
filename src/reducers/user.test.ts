@@ -2,7 +2,7 @@ import reducer from './user';
 import { SWITCH_LOGIN } from '../actions/login';
 import { IUser } from '../store';
 import { ADD_MEAL_TO_ORDER } from '../actions/meal';
-import { ORDER_CHECKOUT_SUCCESS } from '../actions/checkout';
+import { ORDER_CHECKOUT_SUCCESS, ORDER_CHECKOUT_REQUEST } from '../actions/checkout';
 
 test('sets loggedIn flag to true when user is switched and resets the rest', () => {
     const initialLogins: IUser = {
@@ -171,6 +171,25 @@ test('increments the quantity if a meal already exists in the order', () => {
     ]);
 });
 
+test('on checkoutclears out previous confirmation', () => {
+    const state: IUser = {
+        logins: [],
+        current: {
+            canCreateRestaurant: false, userName: 'test', orders: [], confirmation: {
+                deliveries: [],
+                customer: { userName: '', address: '', phone: '' },
+                grandTotal: 0
+            }
+        }
+    };
+
+    const user = reducer(state, {
+        type: ORDER_CHECKOUT_REQUEST
+    });
+
+    expect(user.current.confirmation).toBeUndefined();
+});
+
 test('on successful checkout populates confirmation order and clears out orders', () => {
     const state: IUser = {
         logins: [],
@@ -186,7 +205,7 @@ test('on successful checkout populates confirmation order and clears out orders'
             {
                 meals: [{ quantity: 1, name: '' }],
                 eta: '',
-                restaurant: {name: '', email: ''},
+                restaurant: { name: '', email: '' },
                 subTotal: 0
             }
         ],
