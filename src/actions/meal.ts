@@ -29,8 +29,12 @@ export const fetchMeals = (restaurantId: number) => {
     return async (dispatch: Dispatch<RestonodeAction>) => {
         dispatch<IFetchMeals>({ type: FETCH_MEALS_REQUEST, restaurantId });
 
-        const response = await axios.get(`${apiEndPoint}/v1/order-management/restaurants/${restaurantId}/meals`);
-        dispatch<IFetchMeals>({ type: FETCH_MEALS_SUCCESS, response: response.data.meals });
+        try {
+            const response = await axios.get(`${apiEndPoint}/v1/order-management/restaurants/${restaurantId}/meals`);
+            dispatch<IFetchMeals>({ type: FETCH_MEALS_SUCCESS, response: response.data.meals });
+        } catch (e) {
+            dispatch({ type: FETCH_MEALS_ERROR });
+        }
     };
 };
 

@@ -10,62 +10,7 @@ const initialState: IUser = {
         { userName: 'mrBigShot', canCreateRestaurant: true, orders: [] }
     ],
     current: {
-        userName: 'anonymous', canCreateRestaurant: false, orders: [], confirmation: {
-            deliveries: [
-                {
-                    restaurant: {
-                        name: 'great eats',
-                        email: 'great.eats@email.com'
-                    },
-                    eta: '3 mins',
-                    meals: [
-                        {
-                            name: 'house burger',
-                            quantity: 1
-                        },
-                        {
-                            name: 'winter stew',
-                            quantity: 3
-                        }
-                    ],
-                    subTotal: 870
-                },
-                {
-                    restaurant: {
-                        name: 'fancy eats',
-                        email: 'fancy.eats@email.com'
-                    },
-                    eta: '18 mins',
-                    meals: [
-                        {
-                            name: 'deep dish pizza',
-                            quantity: 1
-                        }
-                    ],
-                    subTotal: 350
-                },
-                {
-                    restaurant: {
-                        name: 'Chinese Delights',
-                        email: 'chinese.delights@email.com'
-                    },
-                    eta: '27 mins',
-                    meals: [
-                        {
-                            name: 'fried rice',
-                            quantity: 2
-                        }
-                    ],
-                    subTotal: 600
-                }
-            ],
-            grandTotal: 1820,
-            customer: {
-                userName: 'hungryJoe',
-                phone: '1111111111',
-                address: 'Balcarce 476 CABA Argentina'
-            }
-        }
+        userName: 'hungryJoe', canCreateRestaurant: false, orders: []
     }
 };
 

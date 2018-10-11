@@ -10,7 +10,7 @@ import AccountCircle from '@material-ui/icons/AccountBox';
 import Shopping from '@material-ui/icons/ShoppingCart';
 import CssBaseLine from '@material-ui/core/CssBaseline';
 import Logins, { ILoginsProps } from '../logins';
-import { Drawer, LinearProgress } from '@material-ui/core';
+import { Drawer, LinearProgress, Grid } from '@material-ui/core';
 import Order, { IOrderProps } from '../order';
 
 const styles = (theme: Theme) => ({
@@ -38,7 +38,16 @@ const styles = (theme: Theme) => ({
     }
 });
 
-class Navigation extends React.Component<ILoginsProps & IOrderProps & WithStyles<typeof styles>> {
+export interface INotification {
+    isFetching: boolean;
+    hasError: boolean;
+}
+
+class Navigation extends React.Component<
+    ILoginsProps
+    & IOrderProps
+    & INotification
+    & WithStyles<typeof styles>> {
     state = {
         anchorEl: undefined,
         shoppingCartOpen: false
@@ -102,7 +111,17 @@ class Navigation extends React.Component<ILoginsProps & IOrderProps & WithStyles
                         </div>
                     </Toolbar>
                 </AppBar>
-                <LinearProgress color='secondary' />
+                {this.props.isFetching && <LinearProgress color='secondary' />}
+                {this.props.hasError && (
+                    <Grid lg={12} >
+                        <Typography align='center' variant='title' color='error'>
+                            Oops! something went wrong...
+                        </Typography>
+                        <Typography align='center' variant='caption' color='error'>
+                            If it's any consolation, you look lovely today!
+                        </Typography>
+                    </Grid>
+                )}
                 <Menu
                     anchorEl={anchorEl}
                     anchorOrigin={{ vertical: 'top', horizontal: 'right' }}

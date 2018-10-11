@@ -66,7 +66,7 @@ class Order extends React.Component<WithStyles<typeof styles> & IOrderProps> {
 
                         </Grid>
                         {loggedInUser.orders.map(({ meal, quantity, total }: IOrder) => (
-                            <Grid item key={meal.id} sm={2} md={2} lg={12}>
+                            <Grid item key={meal.id} sm={12} md={12} lg={12}>
                                 <Card className={classes.card}>
                                     <CardContent className={classes.cardContent}>
                                         <Grid container

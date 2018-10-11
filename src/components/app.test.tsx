@@ -17,6 +17,8 @@ const user: IUser = {
 };
 
 const app = <App user={user}
+    hasError={false}
+    isFetching={false}
     addMeal={jest.fn()}
     checkout={jest.fn()}
     loggedInUser={user.current}

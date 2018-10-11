@@ -213,3 +213,14 @@ test('map checkout to dispatches', async () => {
         response: { deliveries: [] }
     });
 });
+
+test('maps isFetching to props', () => {
+    const initialState: IStoreState = {
+        user: { logins: [], current: { userName: '', canCreateRestaurant: false, orders: [] } },
+        restaurants: { all: [] },
+        isFetching: true
+    };
+    const mappedProps = mapStateToProps(initialState);
+
+    expect(mappedProps.isFetching).toBe(true);
+});

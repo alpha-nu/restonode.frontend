@@ -31,16 +31,20 @@ export const fetchRestaurants = () => {
     return async (dispatch: Dispatch<RestonodeAction>) => {
         dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_REQUEST });
 
-        const response = await axios.get(`${apiEndPoint}/v1/order-management/restaurants`);
-        const result = response.data.restaurants.map(
-            ({ id, name, address, score }: any) => ({
-                id,
-                name,
-                address,
-                rating: score && score.toString() || 'n/a'
-            } as any));
+        try {
+            const response = await axios.get(`${apiEndPoint}/v1/order-management/restaurants`);
+            const result = response.data.restaurants.map(
+                ({ id, name, address, score }: any) => ({
+                    id,
+                    name,
+                    address,
+                    rating: score && score.toString() || 'n/a'
+                } as any));
 
-        dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_SUCCESS, response: result });
+            dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_SUCCESS, response: result });
+        } catch (e) {
+            dispatch<IFetchRestaurants>({type: FETCH_RESTAURANTS_ERROR});
+        }
     };
 };
 

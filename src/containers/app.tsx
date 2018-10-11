@@ -11,7 +11,9 @@ import { checkout } from '../actions/checkout';
 export const mapStateToProps = (state: IStoreState) => ({
     user: state.user,
     restaurants: state.restaurants,
-    loggedInUser: state.user.current
+    loggedInUser: state.user.current,
+    isFetching: state.isFetching,
+    hasError: state.hasError
 });
 
 export const mapDispatchToProps = (dispatch: Dispatch<RestonodeAction>) => ({

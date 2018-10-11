@@ -17,21 +17,25 @@ export interface IOrderCheckout {
     response?: IOrderConfirmation;
 }
 
-export const checkout = ({userName, orders}: ILogin) => {
-    return async (dispatcher: Dispatch<RestonodeAction>) => {
-        dispatcher({
+export const checkout = ({ userName, orders }: ILogin) => {
+    return async (dispatch: Dispatch<RestonodeAction>) => {
+        dispatch({
             type: ORDER_CHECKOUT_REQUEST
         });
 
-        const meals = orders.map(_ => ({id: _.meal.id, quantity: _.quantity}));
-        const result = await axios.post(`${apiEndPoint}/v1/order-management/orders`, {
-            meals,
-            userName
-        });
+        try {
 
-        dispatcher({
-            type: ORDER_CHECKOUT_SUCCESS,
-            response: result.data
-        });
+            const meals = orders.map(_ => ({ id: _.meal.id, quantity: _.quantity }));
+            const result = await axios.post(`${apiEndPoint}/v1/order-management/orders`, {
+                meals,
+                userName
+            });
+            dispatch({
+                type: ORDER_CHECKOUT_SUCCESS,
+                response: result.data
+            });
+        } catch (e) {
+            dispatch({ type: ORDER_CHECKOUT_ERROR });
+        }
     };
 };

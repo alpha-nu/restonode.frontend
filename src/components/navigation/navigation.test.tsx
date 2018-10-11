@@ -10,6 +10,8 @@ enzyme.configure({ adapter: new Adapter() });
 test('<Navigation/> renders its child components', () => {
     const user: IUser = { logins: [], current: { userName: '', canCreateRestaurant: false, orders: [] } };
     shallow(<Navigation
+        hasError={false}
+        isFetching={false}
         user={user}
         loggedInUser={user.current}
         checkout={jest.fn()}

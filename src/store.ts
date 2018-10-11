@@ -1,6 +1,8 @@
 import { createStore, combineReducers } from 'redux';
 import user from './reducers/user';
 import restaurants from './reducers/restaurants';
+import isFetching from './reducers/isFetching';
+import hasError from './reducers/hasError';
 
 export interface ILogin {
     userName: string;
@@ -56,12 +58,16 @@ export interface IOrderConfirmation {
 export interface IStoreState {
     user: IUser;
     restaurants: IRestaurants;
+    isFetching?: boolean;
+    hasError?: boolean;
 }
 
 export default createStore<IStoreState, any, any, {}>(
     combineReducers({
         restaurants,
-        user
+        user,
+        isFetching,
+        hasError
     }),
     (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );
