@@ -13,11 +13,16 @@ import {
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import StarRateIcon from '@material-ui/icons/StarRate';
+import { RouteComponentProps } from 'react-router';
 
 export interface IMenuProps {
-    fetchMeals: (restaurantId: number) => void;
-    selectedRestaurant?: IRestaurant;
     addMeal: (meal: IMeal) => void;
+    selectRestaurant: (id: number) => void;
+    selectedRestaurant: IRestaurant;
+}
+
+interface ISelectedRestaurantParam {
+    id: string;
 }
 
 const styles = (theme: Theme) => ({
@@ -56,17 +61,19 @@ const styles = (theme: Theme) => ({
     }
 });
 
-class Menu extends React.Component<WithStyles<typeof styles> & IMenuProps> {
+class Menu extends React.Component<WithStyles<typeof styles>
+    & IMenuProps
+    & RouteComponentProps<ISelectedRestaurantParam>> {
 
     componentDidMount() {
-        this.props.fetchMeals!(this.props.selectedRestaurant!.id);
+        this.props.selectRestaurant(parseInt(this.props.match.params.id, 10));
     }
 
     renderMeals = () => {
         const { classes, selectedRestaurant } = this.props;
         if (selectedRestaurant!.meals === undefined || selectedRestaurant!.meals!.length === 0) {
             return (
-                <Typography variant='title' align='center' color='textSecondary' paragraph>
+                <Typography variant='h6' align='center' color='textSecondary' paragraph>
                     this restaurant has not added any meals
                 </Typography>
             );
@@ -80,7 +87,7 @@ class Menu extends React.Component<WithStyles<typeof styles> & IMenuProps> {
                                 direction='row'
                                 justify='flex-end'
                                 alignItems='flex-end'>
-                                <Typography gutterBottom variant='headline' component='h2'>
+                                <Typography gutterBottom variant='h5' component='h2'>
                                     ${meal.price}
                                 </Typography>
                             </Grid>
@@ -112,13 +119,13 @@ class Menu extends React.Component<WithStyles<typeof styles> & IMenuProps> {
             <div>
                 <div className={classes.heroUnit}>
                     <div className={classes.heroContent}>
-                        <Typography variant='display3' align='center' color='textPrimary' gutterBottom>
+                        <Typography variant='h2' align='center' color='textPrimary' gutterBottom>
                             {selectedRestaurant.name}
                             <Badge className={classes.rating} badgeContent={selectedRestaurant.rating} color='primary'>
                                 <StarRateIcon className={classes.star} />
                             </Badge>
                         </Typography>
-                        <Typography variant='title' align='center' color='textSecondary' paragraph>
+                        <Typography variant='h6' align='center' color='textSecondary' paragraph>
                             online menu
                         </Typography>
                     </div>

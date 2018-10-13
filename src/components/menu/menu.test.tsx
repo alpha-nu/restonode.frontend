@@ -4,6 +4,7 @@ import { shallow } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import Menu from '.';
 import { IRestaurant } from '../../store';
+import { createHashHistory } from 'history';
 
 enzyme.configure({ adapter: new Adapter() });
 
@@ -17,13 +18,32 @@ test('renders meals of a selected restaurant', () => {
             { id: 1, description: 'tasty', name: 'noodles', price: 919 }
         ]
     };
-    const menu = shallow(<Menu addMeal={jest.fn()} selectedRestaurant={restaurant} fetchMeals={jest.fn()} />);
+    const menu = shallow(<Menu
+        match={{ params: { id: '1' }, isExact: false, url: '', path: '' }}
+        history={createHashHistory()}
+        location={{ pathname: '', state: '', hash: '', search: '' }}
+        addMeal={jest.fn()}
+        selectedRestaurant={restaurant}
+        selectRestaurant={jest.fn()} />);
 
     const html = menu.html();
     expect(html).toContain('fancy eats');
     expect(html).toContain('noodles');
     expect(html).toContain('tasty');
     expect(html).toContain('919');
+});
+
+test('<Menu /> dispatches selectRestaurant event', () => {
+    const selectRestaurant = jest.fn();
+    enzyme.mount(<Menu
+        match={{ params: { id: '1' }, isExact: false, url: '', path: '' }}
+        history={createHashHistory()}
+        location={{ pathname: '', state: '', hash: '', search: '' }}
+        addMeal={jest.fn()}
+        selectedRestaurant={ { id: 1, name: 'one', address: 'address', rating: '1' }}
+        selectRestaurant={selectRestaurant} />);
+
+    expect(selectRestaurant.mock.calls[0][0]).toBe(1);
 });
 
 test('dispatches addMeal event', () => {
@@ -39,9 +59,12 @@ test('dispatches addMeal event', () => {
     };
     const addMeal = jest.fn();
     const menu = enzyme.mount(<Menu
+        match={{ params: { id: '1' }, isExact: false, url: '', path: '' }}
+        history={createHashHistory()}
+        location={{ pathname: '', state: '', hash: '', search: '' }}
         addMeal={addMeal}
         selectedRestaurant={restaurant}
-        fetchMeals={jest.fn()} />);
+        selectRestaurant={jest.fn()} />);
 
     menu.find('WithStyles(Button)').first().simulate('click');
     menu.find('WithStyles(Button)').last().simulate('click');

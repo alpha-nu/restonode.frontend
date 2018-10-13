@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import { RestonodeAction } from '.';
 import axios from 'axios';
 import { apiEndPoint } from '../config/endpoints';
+import { fetchMeals } from './meal';
 
 const FETCH_RESTAURANTS = 'FETCH_RESTAURANTS';
 export type FETCH_RESTAURANTS = typeof FETCH_RESTAURANTS;
@@ -43,12 +44,18 @@ export const fetchRestaurants = () => {
 
             dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_SUCCESS, response: result });
         } catch (e) {
-            dispatch<IFetchRestaurants>({type: FETCH_RESTAURANTS_ERROR});
+            dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_ERROR });
         }
     };
 };
 
-export const selectRestaurant = (id: number): ISelectRestaurant => ({
-    type: SELECT_RESTAURANT,
-    id
-});
+export const selectRestaurant = (id: number) => {
+    return async (dispatch: Dispatch<RestonodeAction>) => {
+        dispatch<ISelectRestaurant>({
+            type: SELECT_RESTAURANT,
+            id
+        });
+
+        await fetchMeals(id)(dispatch);
+    };
+};

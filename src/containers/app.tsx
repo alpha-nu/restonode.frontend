@@ -13,13 +13,14 @@ export const mapStateToProps = (state: IStoreState) => ({
     restaurants: state.restaurants,
     loggedInUser: state.user.current,
     isFetching: state.isFetching,
-    hasError: state.hasError
+    hasError: state.hasError,
+    selectedRestaurant: state.restaurants.selected
 });
 
 export const mapDispatchToProps = (dispatch: Dispatch<RestonodeAction>) => ({
     switchLogin: (userName: string) => dispatch(switchLogin(userName)),
     fetchRestaurants: () => fetchRestaurants()(dispatch),
-    selectRestaurant: (id: number) => dispatch(selectRestaurant(id)),
+    selectRestaurant: (id: number) => selectRestaurant(id)(dispatch),
     fetchMeals: (restaurantId: number) => fetchMeals(restaurantId)(dispatch),
     addMeal: (meal: IMeal) => dispatch(addMeal(meal)),
     checkout: (user: ILogin) => checkout(user)(dispatch)

@@ -31,15 +31,18 @@ export default class App extends React.Component<ILoginsProps
                         <Route exact={true} path='/restaurants' >
                             <Restaurants
                                 fetchRestaurants={this.props.fetchRestaurants}
-                                restaurants={this.props.restaurants}
-                                selectRestaurant={this.props.selectRestaurant}
-                            />
+                                restaurants={this.props.restaurants} />
                         </Route>
-                        <Route path='/restaurants/:id'>
+                        <Route path='/restaurants/:id' render={({ match, history, location }) =>
                             <Menu
-                                fetchMeals={this.props.fetchMeals}
-                                selectedRestaurant={this.props.restaurants.selected!}
+                                match={match}
+                                history={history}
+                                location={location}
+                                selectRestaurant={this.props.selectRestaurant}
+                                selectedRestaurant={this.props.selectedRestaurant}
                                 addMeal={this.props.addMeal} />
+                        }>
+
                         </Route>
                         <Route path='/order-confirmation'>
                             <Confirmation order={this.props.loggedInUser.confirmation!} />

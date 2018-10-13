@@ -13,7 +13,6 @@ import MenuIcon from '@material-ui/icons/RestaurantMenu';
 export interface IRestaurantsProps {
     restaurants: IRestaurants;
     fetchRestaurants: () => void;
-    selectRestaurant: (id: number) => void;
 }
 
 const styles = (theme: Theme) => ({
@@ -74,8 +73,7 @@ class Restaurants extends React.Component<WithStyles<typeof styles> & IRestauran
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Link onClick={() => this.props.selectRestaurant(restaurant.id)}
-                                    className='restaurant-name'
+                                <Link className='restaurant-name'
                                     to={`/restaurants/${restaurant.id}`} style={{ textDecoration: 'none' }}>
                                     <Button
                                         size='small' variant='contained' color='primary'>
