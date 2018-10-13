@@ -90,7 +90,7 @@ class Navigation extends React.Component<
                 <CssBaseLine />
                 <AppBar position='static'>
                     <Toolbar className={classes.appBar}>
-                        <Typography className={classes.title} variant='title' color='inherit' noWrap>
+                        <Typography className={classes.title} variant='h6' color='inherit' noWrap>
                             R.e.s.t.o.n.o.d.e
                         </Typography>
                         <div className={classes.grow} />
@@ -112,7 +112,7 @@ class Navigation extends React.Component<
                                 color='inherit'
                             >
                                 <AccountCircle />
-                                <Typography variant='body1' color='inherit'>
+                                <Typography variant='body2' color='inherit'>
                                     &nbsp;{this.props.user.current.userName}
                                 </Typography>
                             </IconButton>
@@ -122,7 +122,7 @@ class Navigation extends React.Component<
                 {this.props.isFetching && <LinearProgress color='secondary' />}
                 {this.props.hasError && (
                     <Grid lg={12} >
-                        <Typography align='center' variant='title' color='error'>
+                        <Typography align='center' variant='h6' color='error'>
                             Oops! something went wrong...
                         </Typography>
                         <Typography align='center' variant='caption' color='error'>

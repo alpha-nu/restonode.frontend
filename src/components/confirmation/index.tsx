@@ -63,12 +63,12 @@ class Confirmation extends React.Component<WithStyles<typeof styles> & IConfirma
         <Grid item key={deliveryIndex} lg={12}>
             <Card key={deliveryIndex} className={this.props.classes.card}>
                 <CardContent className={this.props.classes.cardContent}>
-                    <Typography gutterBottom variant='display1' >
+                    <Typography gutterBottom variant='h4' >
                         {delivery.restaurant.name}
                         <RestaurantIcon color='primary' />
                     </Typography>
                     {delivery.meals.map(({ name, quantity }, index) => (
-                        <Typography key={index} gutterBottom variant='headline'>
+                        <Typography key={index} gutterBottom variant='h5'>
                             {name} (x{quantity})
                         </Typography>
                     ))}
@@ -76,7 +76,7 @@ class Confirmation extends React.Component<WithStyles<typeof styles> & IConfirma
                         direction='column'
                         justify='flex-end'
                         alignItems='flex-end'>
-                        <Typography gutterBottom variant='display1'>
+                        <Typography gutterBottom variant='h4'>
                             ${delivery.subTotal}
                         </Typography>
                         <Button color='primary' variant='contained'>
@@ -100,11 +100,11 @@ class Confirmation extends React.Component<WithStyles<typeof styles> & IConfirma
             <div>
                 <div className={classes.heroUnit}>
                     <div className={classes.heroContent}>
-                        <Typography variant='display3' align='center' color='textPrimary' gutterBottom>
+                        <Typography variant='h2' align='center' color='textPrimary' gutterBottom>
                             Confirmation
                             <CheckIcon fontSize='large' className={classes.confirmation} />
                         </Typography>
-                        <Typography variant='title' align='center' color='textSecondary' paragraph>
+                        <Typography variant='h6' align='center' color='textSecondary' paragraph>
                             Sit tight! You'll enjoy:
                         </Typography>
                     </div>
@@ -116,7 +116,7 @@ class Confirmation extends React.Component<WithStyles<typeof styles> & IConfirma
                                 direction='row'
                                 justify='flex-end'
                                 alignItems='flex-end'>
-                                <Typography gutterBottom variant='display1'>
+                                <Typography gutterBottom variant='h4'>
                                     total: ${order.grandTotal}
                                 </Typography>
                             </Grid>
