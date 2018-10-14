@@ -8,7 +8,8 @@ import {
 } from '@material-ui/core';
 import { WithStyles, withStyles } from '@material-ui/core/styles';
 import StarRateIcon from '@material-ui/icons/StarRate';
-import MenuIcon from '@material-ui/icons/RestaurantMenu';
+import RestaurantIcon from '@material-ui/icons/RestaurantMenu';
+import AddIcon from '@material-ui/icons/Add';
 
 export interface IRestaurantsProps {
     restaurants: IRestaurants;
@@ -40,6 +41,9 @@ const styles = (theme: Theme) => ({
     },
     star: {
         color: '#e2a616'
+    },
+    newRestaurantGrid: {
+        padding: `${theme.spacing.unit * 3}px`
     }
 });
 
@@ -52,6 +56,13 @@ class Restaurants extends React.Component<WithStyles<typeof styles> & IRestauran
     public render() {
         const { classes } = this.props;
         return (<div className={`${classes.layout} ${classes.cardGrid}`}>
+            <Grid container className={classes.newRestaurantGrid} spacing={40}>
+                <Link style={{ textDecoration: 'none' }} to='/restaurants/new'>
+                    <Button variant='extendedFab' >
+                        <AddIcon /> New Restaurant
+                    </Button>
+                </Link>
+            </Grid>
             <Grid container spacing={40}>
                 {this.props.restaurants.all.map(restaurant => (
                     <Grid item key={restaurant.id} sm={6} md={6} lg={4}>
@@ -78,7 +89,7 @@ class Restaurants extends React.Component<WithStyles<typeof styles> & IRestauran
                                     <Button
                                         size='small' variant='contained' color='primary'>
                                         Menu
-                                    <MenuIcon />
+                                    <RestaurantIcon />
                                     </Button>
                                 </Link>
                             </CardActions>

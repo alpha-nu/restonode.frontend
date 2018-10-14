@@ -3,7 +3,7 @@ import * as enzyme from 'enzyme';
 import { shallow } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 import Confirmation from '.';
-import { IOrderConfirmation } from 'src/store';
+import { IOrderConfirmation } from '../../store';
 import { MemoryRouter } from 'react-router';
 
 enzyme.configure({ adapter: new Adapter() });

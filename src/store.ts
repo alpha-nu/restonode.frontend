@@ -3,6 +3,7 @@ import user from './reducers/user';
 import restaurants from './reducers/restaurants';
 import isFetching from './reducers/isFetching';
 import hasError from './reducers/hasError';
+import createdRestaurant from './reducers/createdRestaurant';
 
 export interface ILogin {
     userName: string;
@@ -43,7 +44,7 @@ export interface IOrder {
 }
 
 export interface IDelivery {
-    restaurant: {name: string, email: string};
+    restaurant: { name: string, email: string };
     eta: string;
     subTotal: number;
     meals: Array<{ name: string, quantity: number }>;
@@ -51,8 +52,13 @@ export interface IDelivery {
 
 export interface IOrderConfirmation {
     deliveries: IDelivery[];
-    customer: {userName: string, phone: string, address: string};
+    customer: { userName: string, phone: string, address: string };
     grandTotal: number;
+}
+
+export interface ICreatedRestaurant {
+    name?: string;
+    validationErrors?: { [key: string]: string };
 }
 
 export interface IStoreState {
@@ -60,6 +66,7 @@ export interface IStoreState {
     restaurants: IRestaurants;
     isFetching?: boolean;
     hasError?: boolean;
+    createdRestaurant?: ICreatedRestaurant;
 }
 
 export default createStore<IStoreState, any, any, {}>(
@@ -67,7 +74,8 @@ export default createStore<IStoreState, any, any, {}>(
         restaurants,
         user,
         isFetching,
-        hasError
+        hasError,
+        createdRestaurant
     }),
     (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );

@@ -4,7 +4,9 @@ import {
 } from '../actions/meal';
 import {
     IFetchRestaurants,
-    FETCH_RESTAURANTS_ERROR
+    FETCH_RESTAURANTS_ERROR,
+    INewRestaurant,
+    NEW_RESTAURANT_ERROR
 } from '../actions/restaurant';
 import {
     ORDER_CHECKOUT_ERROR,
@@ -13,14 +15,16 @@ import {
 
 export default (state: boolean = false, action: IFetchMeals
     | IFetchRestaurants
-    | IOrderCheckout): boolean => {
+    | IOrderCheckout
+    | INewRestaurant): boolean => {
 
     switch (action.type) {
         case FETCH_MEALS_ERROR:
         case FETCH_RESTAURANTS_ERROR:
         case ORDER_CHECKOUT_ERROR:
+        case NEW_RESTAURANT_ERROR:
             return true;
         default:
-            return state;
+            return false;
     }
 };

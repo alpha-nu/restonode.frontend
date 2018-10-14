@@ -121,7 +121,7 @@ class Navigation extends React.Component<
                 </AppBar>
                 {this.props.isFetching && <LinearProgress color='secondary' />}
                 {this.props.hasError && (
-                    <Grid lg={12} >
+                    <Grid item lg={12} >
                         <Typography align='center' variant='h6' color='error'>
                             Oops! something went wrong...
                         </Typography>

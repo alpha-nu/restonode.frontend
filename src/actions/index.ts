@@ -1,5 +1,5 @@
 import { ISwitchLogin } from './login';
-import { IFetchRestaurants, ISelectRestaurant } from './restaurant';
+import { IFetchRestaurants, ISelectRestaurant, INewRestaurant } from './restaurant';
 import { IFetchMeals, IModifyOrder } from './meal';
 import { IOrderCheckout } from './checkout';
 
@@ -9,4 +9,5 @@ export type RestonodeAction =
     | ISelectRestaurant
     | IFetchMeals
     | IModifyOrder
-    | IOrderCheckout;
+    | IOrderCheckout
+    | INewRestaurant;

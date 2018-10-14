@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IOrderConfirmation, IDelivery } from 'src/store';
+import { IOrderConfirmation, IDelivery } from '../../store';
 import {
     Card,
     CardContent,

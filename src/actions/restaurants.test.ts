@@ -4,7 +4,12 @@ import {
     FETCH_RESTAURANTS_REQUEST,
     FETCH_RESTAURANTS_SUCCESS,
     selectRestaurant,
-    SELECT_RESTAURANT
+    SELECT_RESTAURANT,
+    newRestaurant,
+    NEW_RESTAURANT_REQUEST,
+    NEW_RESTAURANT_SUCCESS,
+    NEW_RESTAURANT_ERROR,
+    NEW_RESTAURANT_VALIDATION_ERROR
 } from './restaurant';
 import * as nock from 'nock';
 import { apiEndPoint } from '../config/endpoints';
@@ -79,4 +84,101 @@ test('dispatches error action in case of fetch errors', async () => {
     await fetchRestaurants()(dispatcher);
 
     expect(dispatcher.mock.calls[1][0]).toEqual({ type: FETCH_RESTAURANTS_ERROR });
+});
+
+test('newRestaurant', async () => {
+    nock(apiEndPoint).post('/v1/order-management/restaurants', {
+        name: 'awesome eats',
+        address: 'address',
+        email: 'awesome.eats@email.com',
+        owner: 'mrBigShot'
+    }).reply(201, {
+        name: 'saved_name',
+        score: undefined,
+        id: 0,
+        address: 'saved_address'
+    }, { 'Access-Control-Allow-Origin': '*' });
+
+    const dispatcher = jest.fn();
+    await newRestaurant({
+        name: 'awesome eats',
+        address: 'address',
+        email: 'awesome.eats@email.com',
+        owner: 'mrBigShot'
+    })(dispatcher);
+
+    expect(dispatcher.mock.calls[0][0]).toEqual({
+        type: NEW_RESTAURANT_REQUEST
+    });
+
+    expect(dispatcher.mock.calls[1][0]).toEqual({
+        type: NEW_RESTAURANT_SUCCESS,
+        name: 'saved_name'
+    });
+});
+
+test('dispatches validation error action in case of bad requests', async () => {
+    nock(apiEndPoint).post('/v1/order-management/restaurants').reply(400, {
+        code: 400,
+        message: [
+            {
+                property: 'name',
+                children: [],
+                constraints: {
+                    isNotEmpty: 'is required'
+                }
+            }, {
+                property: 'email',
+                children: [],
+                constraints: {
+                    isEmail: 'must be a valid email'
+                }
+            }, {
+                property: 'address',
+                children: [
+                    {
+                        property: 'normalized',
+                        children: [],
+                        constraints: {
+                            isNotEmpty: 'is required'
+                        }
+                    }]
+            }]
+    }, { 'Access-Control-Allow-Origin': '*' });
+
+    const dispatcher = jest.fn();
+    await newRestaurant({
+        name: '',
+        address: '',
+        email: '',
+        owner: ''
+    })(dispatcher);
+
+    expect(dispatcher.mock.calls[1][0]).toEqual({
+        type: NEW_RESTAURANT_VALIDATION_ERROR,
+        errors: {
+            address: 'is required',
+            email: 'must be a valid email',
+            name: 'is required'
+        }
+    });
+});
+
+test('dispatches generic error action for non 400 bad request response', async () => {
+    nock(apiEndPoint).post('/v1/order-management/restaurants').reply(401, {
+        code: 401,
+        message: 'unauthorized'
+    }, { 'Access-Control-Allow-Origin': '*' });
+
+    const dispatcher = jest.fn();
+    await newRestaurant({
+        address: '',
+        email: '',
+        name: '',
+        owner: 'unauthorized'
+    })(dispatcher);
+
+    expect(dispatcher.mock.calls[1][0]).toEqual({
+        type: NEW_RESTAURANT_ERROR
+    });
 });

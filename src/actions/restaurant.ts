@@ -28,6 +28,20 @@ export interface ISelectRestaurant {
     id: number;
 }
 
+export const NEW_RESTAURANT_REQUEST = 'NEW_RESTAURANT_REQUEST';
+export const NEW_RESTAURANT_SUCCESS = 'NEW_RESTAURANT_SUCCESS';
+export const NEW_RESTAURANT_ERROR = 'NEW_RESTAURANT_ERROR';
+export const NEW_RESTAURANT_VALIDATION_ERROR = 'NEW_RESTAURANT_VALIDATION_ERROR';
+export type NEW_RESTAURANT = typeof NEW_RESTAURANT_REQUEST
+    | typeof NEW_RESTAURANT_SUCCESS
+    | typeof NEW_RESTAURANT_ERROR
+    | typeof NEW_RESTAURANT_VALIDATION_ERROR;
+export interface INewRestaurant {
+    type: NEW_RESTAURANT;
+    errors?: any;
+    name?: string;
+}
+
 export const fetchRestaurants = () => {
     return async (dispatch: Dispatch<RestonodeAction>) => {
         dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_REQUEST });
@@ -58,4 +72,65 @@ export const selectRestaurant = (id: number) => {
 
         await fetchMeals(id)(dispatch);
     };
+};
+
+export interface ICreateRestaurantAttributes {
+    owner: string;
+    address: string;
+    email: string;
+    name: string;
+}
+
+export const newRestaurant = (restaurant: ICreateRestaurantAttributes) => {
+    return async (dispatch: Dispatch<RestonodeAction>) => {
+        const { owner, name, address, email } = restaurant;
+        dispatch({
+            type: NEW_RESTAURANT_REQUEST
+        });
+
+        try {
+            const response = await axios.post(`${apiEndPoint}/v1/order-management/restaurants`,
+                {
+                    owner,
+                    name,
+                    email,
+                    address
+                });
+
+            const result = response.data;
+            dispatch({
+                type: NEW_RESTAURANT_SUCCESS,
+                name: result.name
+            });
+
+        } catch (e) {
+            if (e.response.status === 400) {
+                dispatch({
+                    type: NEW_RESTAURANT_VALIDATION_ERROR,
+                    errors: mapErrors(e.response.data)
+                });
+            } else {
+                dispatch({
+                    type: NEW_RESTAURANT_ERROR
+                });
+            }
+        }
+    };
+};
+
+const mapErrors = (error: any) => {
+    const recurseErrors = (err: any): any => {
+
+        for (const child of err.children) {
+            return recurseErrors(child);
+        }
+
+        const constraints = err.constraints;
+        return Object.keys(constraints).map(_ => constraints[_]).join(', ');
+    };
+
+    return error.message.reduce((acc: any, _: any) => {
+        acc[_.property] = recurseErrors(_);
+        return acc;
+    }, {});
 };
