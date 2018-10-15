@@ -37,6 +37,7 @@ export interface INewRestaurantProps {
     owner: string;
     createdRestaurant?: ICreatedRestaurant;
     newRestaurant: (restaurantAttributes: ICreateRestaurantAttributes) => void;
+    initNewRestaurant: () => void;
 }
 
 interface INewRestaurantState {
@@ -82,8 +83,8 @@ class NewRestaurant extends React.Component<INewRestaurantProps & WithStyles<typ
                         {createdRestaurant.name} was created successfully. Now go and add some meals!
                     </Typography>
                     <Grid item className={classes.inputGrid}>
-                        <Link style={{ textDecoration: 'none' }} to='/restaurants'>
-                            <Button variant='contained' color='primary'>
+                        <Link style={{ textDecoration: 'none' }} to='/restaurants/new'>
+                            <Button onClick={() => this.props.initNewRestaurant()} variant='contained' color='primary'>
                                 <AddIcon /> New Restaurant
                             </Button>
                         </Link>

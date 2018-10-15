@@ -2,7 +2,8 @@ import { ICreatedRestaurant } from '../store';
 import {
     INewRestaurant,
     NEW_RESTAURANT_SUCCESS,
-    NEW_RESTAURANT_VALIDATION_ERROR
+    NEW_RESTAURANT_VALIDATION_ERROR,
+    NEW_RESTAURANT_INIT
 } from '../actions/restaurant';
 
 const initialState = {
@@ -21,6 +22,13 @@ export default (state: ICreatedRestaurant = initialState, action: INewRestaurant
         return {
             ...state,
             validationErrors: action.errors
+        };
+    }
+
+    if (action.type === NEW_RESTAURANT_INIT) {
+        return {
+            name: undefined,
+            validationErrors: undefined
         };
     }
 

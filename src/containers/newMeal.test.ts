@@ -1,5 +1,6 @@
 import { mapStateToProps, mapDispatchToProps } from './newMeal';
 import { IStoreState } from '../store';
+import { NEW_MEAL_INIT } from '../actions/meal';
 
 test('maps state to props', () => {
     const initialState: IStoreState = {
@@ -21,6 +22,8 @@ test('map dispatch to props', () => {
     const dispatch = jest.fn();
 
     const mappedDispatches = mapDispatchToProps(dispatch);
-
     expect(mappedDispatches.newMeal).toBeInstanceOf(Function);
+
+    mappedDispatches.initNewMeal();
+    expect(dispatch.mock.calls[0][0].type).toEqual(NEW_MEAL_INIT);
 });

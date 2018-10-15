@@ -33,10 +33,13 @@ export const NEW_RESTAURANT_REQUEST = 'NEW_RESTAURANT_REQUEST';
 export const NEW_RESTAURANT_SUCCESS = 'NEW_RESTAURANT_SUCCESS';
 export const NEW_RESTAURANT_ERROR = 'NEW_RESTAURANT_ERROR';
 export const NEW_RESTAURANT_VALIDATION_ERROR = 'NEW_RESTAURANT_VALIDATION_ERROR';
+export const NEW_RESTAURANT_INIT = 'NEW_RESTAURANT_INIT';
 export type NEW_RESTAURANT = typeof NEW_RESTAURANT_REQUEST
     | typeof NEW_RESTAURANT_SUCCESS
     | typeof NEW_RESTAURANT_ERROR
-    | typeof NEW_RESTAURANT_VALIDATION_ERROR;
+    | typeof NEW_RESTAURANT_VALIDATION_ERROR
+    | typeof NEW_RESTAURANT_INIT;
+
 export interface INewRestaurant {
     type: NEW_RESTAURANT;
     errors?: any;
@@ -125,3 +128,7 @@ export const newRestaurant = (restaurant: ICreateRestaurantAttributes) => {
         }
     };
 };
+
+export const initNewRestaurant = (): INewRestaurant => ({
+    type: NEW_RESTAURANT_INIT
+});

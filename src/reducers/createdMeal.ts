@@ -2,7 +2,8 @@ import { ICreatedMeal } from '../store';
 import {
     INewMeal,
     NEW_MEAL_SUCCESS,
-    NEW_MEAL_VALIDATION_ERROR
+    NEW_MEAL_VALIDATION_ERROR,
+    NEW_MEAL_INIT
 } from '../actions/meal';
 
 const initialState = {
@@ -23,6 +24,15 @@ export default (state: ICreatedMeal = initialState, action: INewMeal) => {
         return {
             ...state,
             validationErrors: action.errors
+        };
+    }
+
+    if (action.type === NEW_MEAL_INIT) {
+        return {
+            name: undefined,
+            description: undefined,
+            price: undefined,
+            validationErrors: undefined
         };
     }
 

@@ -37,6 +37,7 @@ export interface INewMealProps {
     selectedRestaurant: IRestaurant;
     createdMeal?: ICreatedMeal;
     newMeal: (restaurantId: number, mealAttributes: ICreateMealAttributes) => void;
+    initNewMeal: () => void;
 }
 
 interface INewMealState {
@@ -84,7 +85,7 @@ class NewMeal extends React.Component<INewMealProps & WithStyles<typeof styles>,
                     </Typography>
                     <Grid item className={classes.inputGrid}>
                         <Link style={{ textDecoration: 'none' }} to={`/restaurants/${restaurantId}/meals/new`}>
-                            <Button variant='contained' color='primary'>
+                            <Button onClick={() => this.props.initNewMeal()} variant='contained' color='primary'>
                                 <AddIcon /> New Meal
                             </Button>
                         </Link>

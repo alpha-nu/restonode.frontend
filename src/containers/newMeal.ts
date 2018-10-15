@@ -3,7 +3,7 @@ import NewMeal from '../components/menu/new';
 import { IStoreState } from '../store';
 import { Dispatch } from 'redux';
 import { RestonodeAction } from '../actions';
-import { newMeal, ICreateMealAttributes } from '../actions/meal';
+import { newMeal, ICreateMealAttributes, initNewMeal } from '../actions/meal';
 
 export const mapStateToProps = (state: IStoreState) => ({
     createdMeal: state.createdMeal,
@@ -11,6 +11,7 @@ export const mapStateToProps = (state: IStoreState) => ({
 });
 
 export const mapDispatchToProps = (dispatch: Dispatch<RestonodeAction>) => ({
+    initNewMeal: () => dispatch(initNewMeal()),
     newMeal: (restaurantId: number, mealAttributes: ICreateMealAttributes) =>
         newMeal(restaurantId, mealAttributes)(dispatch)
 });

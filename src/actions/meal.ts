@@ -30,10 +30,13 @@ export const NEW_MEAL_REQUEST = 'NEW_MEAL_REQUEST';
 export const NEW_MEAL_SUCCESS = 'NEW_MEAL_SUCCESS';
 export const NEW_MEAL_ERROR = 'NEW_MEAL_ERROR';
 export const NEW_MEAL_VALIDATION_ERROR = 'NEW_MEAL_VALIDATION_ERROR';
+export const NEW_MEAL_INIT = 'NEW_MEAL_INIT';
 export type NEW_MEAL = typeof NEW_MEAL_REQUEST
     | typeof NEW_MEAL_SUCCESS
     | typeof NEW_MEAL_ERROR
-    | typeof NEW_MEAL_VALIDATION_ERROR;
+    | typeof NEW_MEAL_VALIDATION_ERROR
+    | typeof NEW_MEAL_INIT;
+
 export interface INewMeal {
     type: NEW_MEAL;
     errors?: any;
@@ -97,3 +100,7 @@ export const newMeal = (restaurantId: number, mealAttributes: ICreateMealAttribu
         }
     };
 };
+
+export const initNewMeal = (): INewMeal => ({
+    type: NEW_MEAL_INIT
+});

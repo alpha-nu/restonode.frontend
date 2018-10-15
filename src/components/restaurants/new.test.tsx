@@ -7,18 +7,22 @@ import { MemoryRouter } from 'react-router';
 enzyme.configure({ adapter: new Adapter() });
 
 test('renders success message', () => {
-    const createDelegate = jest.fn();
+    const resetDelegate = jest.fn();
     const newRestaurant = enzyme.mount(
         <MemoryRouter>
             <NewRestaurant owner={'mrBigShot'}
-                newRestaurant={createDelegate}
+                newRestaurant={jest.fn()}
                 createdRestaurant={{ name: 'fancy eats' }}
+                initNewRestaurant={resetDelegate}
             />
         </MemoryRouter>
     );
 
     expect(newRestaurant.find('TextField').length).toBe(0);
     expect(newRestaurant.html()).toContain('fancy eats was created successfully');
+
+    newRestaurant.find('Button').simulate('click');
+    expect(resetDelegate.mock.calls.length).toBe(1);
 });
 
 test('renders validation errors', () => {
