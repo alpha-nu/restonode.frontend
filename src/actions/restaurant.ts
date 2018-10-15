@@ -44,7 +44,9 @@ export interface INewRestaurant {
 
 const formatRating = (score?: number) => {
     if (!score) { return 'n/a'; }
-    return score.toFixed(1).toString();
+    const toOneDecimalPlace = score.toFixed(1);
+    if (Math.floor(parseFloat(toOneDecimalPlace)) === score) { return score.toString(); }
+    return toOneDecimalPlace.toString();
 };
 
 export const fetchRestaurants = () => {

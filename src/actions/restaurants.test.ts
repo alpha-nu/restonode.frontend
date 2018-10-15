@@ -34,6 +34,12 @@ test('fetchRestaurants', async () => {
                     score: undefined,
                     id: 2,
                     address: 'address 2'
+                },
+                {
+                    name: 'imaginary eats',
+                    score: 6,
+                    id: 3,
+                    address: 'address 3'
                 }]
         }, { 'Access-Control-Allow-Origin': '*' });
 
@@ -49,7 +55,8 @@ test('fetchRestaurants', async () => {
         type: FETCH_RESTAURANTS_SUCCESS,
         response: [
             { id: 1, name: 'great eats', address: 'address', rating: '8.5' },
-            { id: 2, name: 'fancy eats', address: 'address 2', rating: 'n/a' }
+            { id: 2, name: 'fancy eats', address: 'address 2', rating: 'n/a' },
+            { id: 3, name: 'imaginary eats', address: 'address 3', rating: '6' }
         ]
     });
 });
