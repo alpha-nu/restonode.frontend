@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import Menu from '@material-ui/core/Menu';
 import { withStyles, WithStyles, Theme } from '@material-ui/core/styles';
-import AccountCircle from '@material-ui/icons/AccountBox';
+import AccountBox from '@material-ui/icons/AccountBox';
 import Shopping from '@material-ui/icons/ShoppingCart';
 import CssBaseLine from '@material-ui/core/CssBaseline';
 import Logins, { ILoginsProps } from '../logins';
@@ -111,7 +111,7 @@ class Navigation extends React.Component<
                                 onClick={this.handleProfileMenuOpen}
                                 color='inherit'
                             >
-                                <AccountCircle />
+                                <AccountBox />
                                 <Typography variant='body2' color='inherit'>
                                     &nbsp;{this.props.user.current.userName}
                                 </Typography>
