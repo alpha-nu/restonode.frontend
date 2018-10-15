@@ -13,6 +13,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import AddIcon from '@material-ui/icons/Add';
 import { ICreatedRestaurant } from '../../store';
 import { ICreateRestaurantAttributes } from '../../actions/restaurant';
+import { Link } from 'react-router-dom';
 
 const styles = (theme: Theme) => ({
     root: {
@@ -81,9 +82,11 @@ class NewRestaurant extends React.Component<INewRestaurantProps & WithStyles<typ
                         {createdRestaurant.name} was created successfully. Now go and add some meals!
                     </Typography>
                     <Grid item className={classes.inputGrid}>
-                        <Button href='/restaurants/new' variant='contained' color='primary'>
-                            <AddIcon /> New Restaurant
-                        </Button>
+                        <Link style={{ textDecoration: 'none' }} to='/restaurants'>
+                            <Button variant='contained' color='primary'>
+                                <AddIcon /> New Restaurant
+                            </Button>
+                        </Link>
                     </Grid>
                 </Paper>);
         }
