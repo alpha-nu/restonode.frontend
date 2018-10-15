@@ -34,7 +34,7 @@ export type NEW_MEAL = typeof NEW_MEAL_REQUEST
     | typeof NEW_MEAL_SUCCESS
     | typeof NEW_MEAL_ERROR
     | typeof NEW_MEAL_VALIDATION_ERROR;
-export interface INewMEAL {
+export interface INewMeal {
     type: NEW_MEAL;
     errors?: any;
     name?: string;

@@ -2,7 +2,12 @@ import {
     IFetchMeals,
     FETCH_MEALS_REQUEST,
     FETCH_MEALS_SUCCESS,
-    FETCH_MEALS_ERROR
+    FETCH_MEALS_ERROR,
+    INewMeal,
+    NEW_MEAL_REQUEST,
+    NEW_MEAL_SUCCESS,
+    NEW_MEAL_ERROR,
+    NEW_MEAL_VALIDATION_ERROR
 } from '../actions/meal';
 import {
     IFetchRestaurants,
@@ -25,13 +30,15 @@ import {
 export default (state: boolean = false, action: IFetchMeals
     | IFetchRestaurants
     | IOrderCheckout
-    | INewRestaurant): boolean => {
+    | INewRestaurant
+    | INewMeal): boolean => {
 
     switch (action.type) {
         case FETCH_MEALS_REQUEST:
         case FETCH_RESTAURANTS_REQUEST:
         case ORDER_CHECKOUT_REQUEST:
         case NEW_RESTAURANT_REQUEST:
+        case NEW_MEAL_REQUEST:
             return true;
         case FETCH_MEALS_SUCCESS:
         case FETCH_MEALS_ERROR:
@@ -42,6 +49,9 @@ export default (state: boolean = false, action: IFetchMeals
         case NEW_RESTAURANT_SUCCESS:
         case NEW_RESTAURANT_ERROR:
         case NEW_RESTAURANT_VALIDATION_ERROR:
+        case NEW_MEAL_SUCCESS:
+        case NEW_MEAL_ERROR:
+        case NEW_MEAL_VALIDATION_ERROR:
             return false;
         default:
             return state;
