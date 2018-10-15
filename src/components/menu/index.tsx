@@ -9,10 +9,12 @@ import {
     CardActions,
     Button,
     Theme,
-    Badge
+    Badge,
+    Snackbar
 } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import StarRateIcon from '@material-ui/icons/StarRate';
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 
@@ -62,6 +64,16 @@ const styles = (theme: Theme) => ({
     },
     newMealGrid: {
         padding: `${theme.spacing.unit * 3}px`
+    },
+    icon: {
+        fontSize: 20,
+        opacity: 0.9,
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit * 2
+    },
+    message: {
+        display: 'flex',
+        alignItems: 'center'
     }
 });
 
@@ -69,6 +81,11 @@ class Menu extends React.Component<WithStyles<typeof styles>
     & IMenuProps
     & RouteComponentProps<ISelectedRestaurantParam>
     & IPrivilege> {
+
+    state = {
+        snackBarOpen: false,
+        meal: ''
+    };
 
     componentDidMount() {
         this.props.selectRestaurant(parseInt(this.props.match.params.id, 10));
@@ -104,7 +121,13 @@ class Menu extends React.Component<WithStyles<typeof styles>
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button className='add-meal' onClick={() => this.props.addMeal(meal)}
+                            <Button className='add-meal' onClick={
+                                () => {
+                                    this.setState({ meal: meal.name });
+                                    this.setState({ snackBarOpen: true });
+                                    this.props.addMeal(meal);
+                                }
+                            }
                                 size='small' variant='contained' color='primary'>
                                 <AddIcon />
                             </Button>
@@ -122,6 +145,21 @@ class Menu extends React.Component<WithStyles<typeof styles>
 
         return (
             <div>
+                <Snackbar open={this.state.snackBarOpen}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right'
+                    }}
+                    autoHideDuration={1500}
+                    onClose={() => this.setState({ snackBarOpen: false })}
+                    message={
+                        <span className={`${classes.message}`}>
+                            <RestaurantMenuIcon className={classes.icon} />
+                            {`${this.state.meal} added to cart`}
+                        </span>
+                    }>
+                </Snackbar>
+
                 <div className={classes.heroUnit}>
                     <div className={classes.heroContent}>
                         <Typography variant='h2' align='center' color='textPrimary' gutterBottom>
@@ -147,7 +185,7 @@ class Menu extends React.Component<WithStyles<typeof styles>
                         </Grid>}
                     {this.renderMeals()}
                 </div>
-            </div>
+            </div >
         );
     }
 }

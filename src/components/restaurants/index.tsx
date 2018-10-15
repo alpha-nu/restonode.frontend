@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import { WithStyles, withStyles } from '@material-ui/core/styles';
 import StarRateIcon from '@material-ui/icons/StarRate';
-import RestaurantIcon from '@material-ui/icons/RestaurantMenu';
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import AddIcon from '@material-ui/icons/Add';
 
 export interface IRestaurantsProps {
@@ -89,7 +89,7 @@ class Restaurants extends React.Component<WithStyles<typeof styles> & IRestauran
                                     <Button
                                         size='small' variant='contained' color='primary'>
                                         Menu
-                                    <RestaurantIcon />
+                                    <RestaurantMenuIcon />
                                     </Button>
                                 </Link>
                             </CardActions>
