@@ -42,6 +42,11 @@ export interface INewRestaurant {
     name?: string;
 }
 
+const formatRating = (score?: number) => {
+    if (!score) { return 'n/a'; }
+    return score.toFixed(1).toString();
+};
+
 export const fetchRestaurants = () => {
     return async (dispatch: Dispatch<RestonodeAction>) => {
         dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_REQUEST });
@@ -53,7 +58,7 @@ export const fetchRestaurants = () => {
                     id,
                     name,
                     address,
-                    rating: score && score.toString() || 'n/a'
+                    rating: formatRating(score)
                 } as any));
 
             dispatch<IFetchRestaurants>({ type: FETCH_RESTAURANTS_SUCCESS, response: result });

@@ -25,7 +25,7 @@ test('fetchRestaurants', async () => {
             restaurants: [
                 {
                     name: 'great eats',
-                    score: 8,
+                    score: 8.4778,
                     id: 1,
                     address: 'address'
                 },
@@ -48,7 +48,7 @@ test('fetchRestaurants', async () => {
     expect(dispatcher.mock.calls[1][0]).toEqual({
         type: FETCH_RESTAURANTS_SUCCESS,
         response: [
-            { id: 1, name: 'great eats', address: 'address', rating: '8' },
+            { id: 1, name: 'great eats', address: 'address', rating: '8.5' },
             { id: 2, name: 'fancy eats', address: 'address 2', rating: 'n/a' }
         ]
     });
