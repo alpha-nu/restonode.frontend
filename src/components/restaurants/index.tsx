@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IRestaurants } from '../../store';
+import { IRestaurants, IPrivilege } from '../../store';
 import { Link } from 'react-router-dom';
 import {
     Grid,
@@ -47,7 +47,7 @@ const styles = (theme: Theme) => ({
     }
 });
 
-class Restaurants extends React.Component<WithStyles<typeof styles> & IRestaurantsProps> {
+class Restaurants extends React.Component<WithStyles<typeof styles> & IRestaurantsProps & IPrivilege> {
 
     componentDidMount() {
         this.props.fetchRestaurants();
@@ -56,13 +56,13 @@ class Restaurants extends React.Component<WithStyles<typeof styles> & IRestauran
     public render() {
         const { classes } = this.props;
         return (<div className={`${classes.layout} ${classes.cardGrid}`}>
-            <Grid container className={classes.newRestaurantGrid} spacing={40}>
+            {this.props.canCreateRestaurant && <Grid container className={classes.newRestaurantGrid} spacing={40}>
                 <Link style={{ textDecoration: 'none' }} to='/restaurants/new'>
-                    <Button variant='extendedFab' >
+                    <Button className='new-restaurant-button' variant='extendedFab' >
                         <AddIcon /> New Restaurant
                     </Button>
                 </Link>
-            </Grid>
+            </Grid>}
             <Grid container spacing={40}>
                 {this.props.restaurants.all.map(restaurant => (
                     <Grid item key={restaurant.id} sm={6} md={6} lg={4}>

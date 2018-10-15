@@ -36,6 +36,9 @@ const styles = (theme: Theme) => ({
     },
     appBar: {
         padding: '15px'
+    },
+    navigationLinks: {
+        padding: `0 ${theme.spacing.unit * 8}px`
     }
 });
 
@@ -93,13 +96,14 @@ class Navigation extends React.Component<
                         <Typography className={classes.title} variant='h6' color='inherit' noWrap>
                             R.e.s.t.o.n.o.d.e
                         </Typography>
-                        <div className={classes.grow} />
-                        <Link style={{ textDecoration: 'none' }} to='/restaurants'>
-                            <Button variant='extendedFab' color='primary'>
-                                view restaurants
+                        <Grid className={classes.navigationLinks}>
+                            <Link style={{ textDecoration: 'none' }} to='/restaurants'>
+                                <Button variant='contained' color='primary'>
+                                    view restaurants
                                 <RestaurantIcon />
-                            </Button>
-                        </Link>
+                                </Button>
+                            </Link>
+                        </Grid>
                         <div className={classes.grow} />
                         <div className={classes.sectionDesktop}>
                             <IconButton onClick={this.toggleShoppingCart} color='inherit'>

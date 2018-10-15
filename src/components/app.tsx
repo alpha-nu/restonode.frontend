@@ -31,10 +31,11 @@ export default class App extends React.Component<ILoginsProps
                     <Switch>
                         <Route exact={true} path='/restaurants' >
                             <Restaurants
+                                canCreateRestaurant={this.props.loggedInUser.canCreateRestaurant}
                                 fetchRestaurants={this.props.fetchRestaurants}
                                 restaurants={this.props.restaurants} />
                         </Route>
-                        <Route path='/restaurants/new' component={NewRestaurant}/>
+                        <Route path='/restaurants/new' component={NewRestaurant} />
                         <Route path='/restaurants/:id' render={({ match, history, location }) =>
                             <Menu
                                 match={match}

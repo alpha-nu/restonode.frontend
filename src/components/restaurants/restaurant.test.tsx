@@ -7,15 +7,18 @@ import { MemoryRouter } from 'react-router';
 
 enzyme.configure({ adapter: new Adapter() });
 
+const state: IRestaurants = {
+    all: [
+        { id: 1, name: 'one', address: 'address', rating: '123' }
+    ]
+};
+
 test('<Restaurants /> renders a list of restaurants', () => {
-    const state: IRestaurants = {
-        all: [
-            { id: 1, name: 'one', address: 'address', rating: '123' }
-        ]
-    };
+
     const restaurants = enzyme.mount(
         <MemoryRouter>
             <Restaurants
+                canCreateRestaurant={false}
                 fetchRestaurants={jest.fn()}
                 restaurants={state} />
         </MemoryRouter>
@@ -26,4 +29,18 @@ test('<Restaurants /> renders a list of restaurants', () => {
     expect(card.html()).toContain('one');
     expect(card.html()).toContain('address');
     expect(card.html()).toContain('123');
+    expect(restaurants.find('.new-restaurant-button').exists()).toBe(false);
+});
+
+test('<Restaurants /> renders a new restaurant button for authorized users', () => {
+    const restaurants = enzyme.mount(
+        <MemoryRouter>
+            <Restaurants
+                canCreateRestaurant={false}
+                fetchRestaurants={jest.fn()}
+                restaurants={state} />
+        </MemoryRouter>
+    );
+
+    expect(restaurants.find('.new-restaurant-button').exists()).toBe(false);
 });

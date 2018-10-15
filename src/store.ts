@@ -5,9 +5,12 @@ import isFetching from './reducers/isFetching';
 import hasError from './reducers/hasError';
 import createdRestaurant from './reducers/createdRestaurant';
 
-export interface ILogin {
-    userName: string;
+export interface IPrivilege {
     canCreateRestaurant: boolean;
+}
+
+export interface ILogin extends IPrivilege {
+    userName: string;
     orders: IOrder[];
     confirmation?: IOrderConfirmation;
 }

@@ -132,7 +132,7 @@ class NewRestaurant extends React.Component<INewRestaurantProps & WithStyles<typ
                         onChange={(e) => this.setState({ email: e.target.value })}
                     />
                 </Grid>
-                <Grid container justify='flex-end' className={classes.inputGrid}>
+                <Grid container justify='flex-start' className={classes.inputGrid}>
                     <Button
                         onClick={() => this.props.newRestaurant({
                             owner: this.props.owner,
