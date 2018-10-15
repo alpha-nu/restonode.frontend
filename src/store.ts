@@ -4,6 +4,7 @@ import restaurants from './reducers/restaurants';
 import isFetching from './reducers/isFetching';
 import hasError from './reducers/hasError';
 import createdRestaurant from './reducers/createdRestaurant';
+import createdMeal from './reducers/createdMeal';
 
 export interface IPrivilege {
     canCreateRestaurant: boolean;
@@ -64,12 +65,19 @@ export interface ICreatedRestaurant {
     validationErrors?: { [key: string]: string };
 }
 
+export interface ICreatedMeal {
+    name?: string;
+    description?: string;
+    validationErrors?: { [key: string]: string };
+}
+
 export interface IStoreState {
     user: IUser;
     restaurants: IRestaurants;
     isFetching?: boolean;
     hasError?: boolean;
     createdRestaurant?: ICreatedRestaurant;
+    createdMeal?: ICreatedMeal;
 }
 
 export default createStore<IStoreState, any, any, {}>(
@@ -78,7 +86,8 @@ export default createStore<IStoreState, any, any, {}>(
         user,
         isFetching,
         hasError,
-        createdRestaurant
+        createdRestaurant,
+        createdMeal
     }),
     (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 );

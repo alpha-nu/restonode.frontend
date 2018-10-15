@@ -85,7 +85,7 @@ class Restaurants extends React.Component<WithStyles<typeof styles> & IRestauran
                             </CardContent>
                             <CardActions>
                                 <Link className='restaurant-name'
-                                    to={`/restaurants/${restaurant.id}`} style={{ textDecoration: 'none' }}>
+                                    to={`/restaurants/${restaurant.id}/meals`} style={{ textDecoration: 'none' }}>
                                     <Button
                                         size='small' variant='contained' color='primary'>
                                         Menu

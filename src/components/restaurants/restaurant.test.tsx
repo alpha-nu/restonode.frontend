@@ -36,11 +36,11 @@ test('<Restaurants /> renders a new restaurant button for authorized users', () 
     const restaurants = enzyme.mount(
         <MemoryRouter>
             <Restaurants
-                canCreateRestaurant={false}
+                canCreateRestaurant={true}
                 fetchRestaurants={jest.fn()}
                 restaurants={state} />
         </MemoryRouter>
     );
 
-    expect(restaurants.find('.new-restaurant-button').exists()).toBe(false);
+    expect(restaurants.find('.new-restaurant-button').exists()).toBe(true);
 });

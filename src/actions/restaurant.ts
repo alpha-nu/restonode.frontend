@@ -4,6 +4,7 @@ import { RestonodeAction } from '.';
 import axios from 'axios';
 import { apiEndPoint } from '../config/endpoints';
 import { fetchMeals } from './meal';
+import { mapValidationErrors } from './validation';
 
 const FETCH_RESTAURANTS = 'FETCH_RESTAURANTS';
 export type FETCH_RESTAURANTS = typeof FETCH_RESTAURANTS;
@@ -114,7 +115,7 @@ export const newRestaurant = (restaurant: ICreateRestaurantAttributes) => {
             if (e.response.status === 400) {
                 dispatch({
                     type: NEW_RESTAURANT_VALIDATION_ERROR,
-                    errors: mapErrors(e.response.data)
+                    errors: mapValidationErrors(e.response.data)
                 });
             } else {
                 dispatch({
@@ -123,22 +124,4 @@ export const newRestaurant = (restaurant: ICreateRestaurantAttributes) => {
             }
         }
     };
-};
-
-const mapErrors = (error: any) => {
-    const recurseErrors = (err: any): any => {
-        if (err.children.length === 0) {
-            const constraints = err.constraints;
-            return Object.keys(constraints).map(_ => constraints[_]).join(', ');
-        }
-
-        for (const child of err.children) {
-            return recurseErrors(child);
-        }
-    };
-
-    return error.message.reduce((acc: any, _: any) => {
-        acc[_.property] = recurseErrors(_);
-        return acc;
-    }, {});
 };

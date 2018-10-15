@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IRestaurant, IMeal } from '../../store';
+import { IRestaurant, IMeal, IPrivilege } from '../../store';
 import {
     WithStyles,
     withStyles,
@@ -14,6 +14,7 @@ import {
 import AddIcon from '@material-ui/icons/Add';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import { RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export interface IMenuProps {
     addMeal: (meal: IMeal) => void;
@@ -58,12 +59,16 @@ const styles = (theme: Theme) => ({
     },
     star: {
         color: '#e2a616'
+    },
+    newMealGrid: {
+        padding: `${theme.spacing.unit * 3}px`
     }
 });
 
 class Menu extends React.Component<WithStyles<typeof styles>
     & IMenuProps
-    & RouteComponentProps<ISelectedRestaurantParam>> {
+    & RouteComponentProps<ISelectedRestaurantParam>
+    & IPrivilege> {
 
     componentDidMount() {
         this.props.selectRestaurant(parseInt(this.props.match.params.id, 10));
@@ -131,6 +136,15 @@ class Menu extends React.Component<WithStyles<typeof styles>
                     </div>
                 </div>
                 <div className={`${classes.layout} ${classes.cardGrid}`}>
+                    {this.props.canCreateRestaurant &&
+                        <Grid container className={classes.newMealGrid} spacing={40}>
+                            <Link style={{ textDecoration: 'none' }}
+                                to={`/restaurants/${selectedRestaurant.id}/meals/new`}>
+                                <Button className='new-meal-button' variant='extendedFab' >
+                                    <AddIcon /> New Meal
+                                </Button>
+                            </Link>
+                        </Grid>}
                     {this.renderMeals()}
                 </div>
             </div>

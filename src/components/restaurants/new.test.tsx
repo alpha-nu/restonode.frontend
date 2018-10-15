@@ -2,16 +2,19 @@ import NewRestaurant from './new';
 import * as React from 'react';
 import * as enzyme from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
+import { MemoryRouter } from 'react-router';
 
 enzyme.configure({ adapter: new Adapter() });
 
 test('renders success message', () => {
     const createDelegate = jest.fn();
-    const newRestaurant = enzyme.shallow(
-        <NewRestaurant owner={'mrBigShot'}
-            newRestaurant={createDelegate}
-            createdRestaurant={{ name: 'fancy eats' }}
-        />
+    const newRestaurant = enzyme.mount(
+        <MemoryRouter>
+            <NewRestaurant owner={'mrBigShot'}
+                newRestaurant={createDelegate}
+                createdRestaurant={{ name: 'fancy eats' }}
+            />
+        </MemoryRouter>
     );
 
     expect(newRestaurant.find('TextField').length).toBe(0);

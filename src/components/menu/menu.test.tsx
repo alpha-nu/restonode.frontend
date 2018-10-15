@@ -5,6 +5,7 @@ import * as Adapter from 'enzyme-adapter-react-16';
 import Menu from '.';
 import { IRestaurant } from '../../store';
 import { createHashHistory } from 'history';
+import { MemoryRouter } from 'react-router';
 
 enzyme.configure({ adapter: new Adapter() });
 
@@ -19,6 +20,7 @@ test('renders meals of a selected restaurant', () => {
         ]
     };
     const menu = shallow(<Menu
+        canCreateRestaurant={false}
         match={{ params: { id: '1' }, isExact: false, url: '', path: '' }}
         history={createHashHistory()}
         location={{ pathname: '', state: '', hash: '', search: '' }}
@@ -36,11 +38,12 @@ test('renders meals of a selected restaurant', () => {
 test('<Menu /> dispatches selectRestaurant event', () => {
     const selectRestaurant = jest.fn();
     enzyme.mount(<Menu
+        canCreateRestaurant={false}
         match={{ params: { id: '1' }, isExact: false, url: '', path: '' }}
         history={createHashHistory()}
         location={{ pathname: '', state: '', hash: '', search: '' }}
         addMeal={jest.fn()}
-        selectedRestaurant={ { id: 1, name: 'one', address: 'address', rating: '1' }}
+        selectedRestaurant={{ id: 1, name: 'one', address: 'address', rating: '1' }}
         selectRestaurant={selectRestaurant} />);
 
     expect(selectRestaurant.mock.calls[0][0]).toBe(1);
@@ -59,6 +62,7 @@ test('dispatches addMeal event', () => {
     };
     const addMeal = jest.fn();
     const menu = enzyme.mount(<Menu
+        canCreateRestaurant={false}
         match={{ params: { id: '1' }, isExact: false, url: '', path: '' }}
         history={createHashHistory()}
         location={{ pathname: '', state: '', hash: '', search: '' }}
@@ -82,4 +86,21 @@ test('dispatches addMeal event', () => {
         name: 'burger',
         price: 120
     });
+});
+
+test('<Menu /> renders an add meal button for authorized users', () => {
+    const addMeal = jest.fn();
+    const menu = enzyme.shallow(
+        <MemoryRouter><Menu
+            canCreateRestaurant={true}
+            match={{ params: { id: '1' }, isExact: false, url: '', path: '' }}
+            history={createHashHistory()}
+            location={{ pathname: '', state: '', hash: '', search: '' }}
+            addMeal={addMeal}
+            selectedRestaurant={{ id: 1, name: 'one', address: 'address', rating: '1' }}
+            selectRestaurant={jest.fn()} />
+        </MemoryRouter>
+    );
+
+    expect(menu.html()).toContain('New Meal');
 });

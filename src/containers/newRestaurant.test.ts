@@ -22,5 +22,5 @@ test('map dispatch to props', () => {
 
     const mappedDispatches = mapDispatchToProps(dispatch);
 
-    expect(mappedDispatches.newRestaurant({ name: '', email: '', owner: '', address: '' })).toBeInstanceOf(Promise);
+    expect(mappedDispatches.newRestaurant).toBeInstanceOf(Function);
 });

@@ -31,7 +31,7 @@ const app = <App user={user}
 test('<App /> renders its child components and defaults to restaurant view', () => {
 
     const mountedApp = mount(
-        <MemoryRouter initialEntries={['/restaurants', '/restaurants/1']} initialIndex={0}>
+        <MemoryRouter initialEntries={['/restaurants', '/restaurants/1/meals']} initialIndex={0}>
             {app}
         </MemoryRouter>
     );
@@ -42,7 +42,7 @@ test('<App /> renders its child components and defaults to restaurant view', () 
 
 test('<App /> renders menu view for a selected restaurant', () => {
     const mountedApp = mount(
-        <MemoryRouter initialEntries={['/restaurants', '/restaurants/1']} initialIndex={1}>
+        <MemoryRouter initialEntries={['/restaurants', '/restaurants/1/meals']} initialIndex={1}>
             {app}
         </MemoryRouter>
     );

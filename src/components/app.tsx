@@ -7,6 +7,7 @@ import { ILoginsProps } from './logins';
 import Menu, { IMenuProps } from './menu';
 import Confirmation from './confirmation';
 import NewRestaurant from '../containers/newRestaurant';
+import NewMeal from '../containers/newMeal';
 
 export default class App extends React.Component<ILoginsProps
     & IRestaurantsProps
@@ -36,16 +37,18 @@ export default class App extends React.Component<ILoginsProps
                                 restaurants={this.props.restaurants} />
                         </Route>
                         <Route path='/restaurants/new' component={NewRestaurant} />
-                        <Route path='/restaurants/:id' render={({ match, history, location }) =>
+                        <Route exact={true} path='/restaurants/:id/meals' render={({ match, history, location }) =>
                             <Menu
                                 match={match}
                                 history={history}
                                 location={location}
+                                canCreateRestaurant={this.props.loggedInUser.canCreateRestaurant}
                                 selectRestaurant={this.props.selectRestaurant}
                                 selectedRestaurant={this.props.selectedRestaurant}
                                 addMeal={this.props.addMeal} />
                         }>
                         </Route>
+                        <Route path='/restaurants/:id/meals/new' component={NewMeal} />
                         <Route path='/order-confirmation'>
                             <Confirmation order={this.props.loggedInUser.confirmation!} />
                         </Route>
